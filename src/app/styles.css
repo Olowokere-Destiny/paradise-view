@@ -1,0 +1,6 @@
+.rooms-section {
+    background-image: url("../assets/rooms-bg.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+}

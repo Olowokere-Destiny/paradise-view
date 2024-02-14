@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Defining styles for the theme brown colour */
+*::selection {
+  background-color: #7c6a46;
+  color: white;
+}
+.bg-brown {
+  background-color: #7c6a46;
+}
+
+.bg-light-brown {
+  background-color: rgba(124, 106, 70, 0.6);
+}
+
+.text-brown {
+  color: #7c6a46;
+}
+
+.custom-shadow {
+  box-shadow: 0px 4px 30px -5px rgba(0, 0, 0, 0.15);
+}
+
+.animate-slideup {
+  animation: slideup 1s ease-in-out forwards;
+}
+
+@keyframes slideup {
+  0% {
+    transform: translateY(0);
+    opacity: 50%;
+  }
+  100% {
+    transform: translateY(-3rem);
+    opacity: 100%;
+  }
+}
