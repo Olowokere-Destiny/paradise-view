@@ -21,7 +21,7 @@ interface HotelData {
   city: string;
   latitude: number;
   longitude: number;
-  accomodation_type_name?: string;
+  accommodation_type_name?: string;
   address: string;
   country_trans: string;
   hotel_id: number;
@@ -121,9 +121,9 @@ function Hotel({ params: { hotelId } }: Props) {
               className={`flex items-center justify-center font-[600] text-brown text-[2rem] md:text-[2.3rem] ${raleway.className}`}
             >
               {hotelData?.hotel_name}
-              {hotelData?.accomodation_type_name && (
+              {hotelData?.accommodation_type_name && (
                 <span className="text-[0.7rem] rounded-md ml-2 px-1 bg-light-brown text-white">
-                  {hotelData?.accomodation_type_name}
+                  {hotelData?.accommodation_type_name}
                 </span>
               )}
             </p>

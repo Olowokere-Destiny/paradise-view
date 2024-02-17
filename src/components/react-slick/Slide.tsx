@@ -44,14 +44,14 @@ function Slide({ photos }: { photos: string[] }) {
         return (
           <div
             key={photo}
-            className="md:p-2 relative max-h-[250px] overflow-hidden"
+            className="md:p-2 relative max-h-[200px] overflow-hidden"
           >
             <Image
               src={photo}
               width={150}
               height={100}
               alt="house"
-              className="w-full rounded-[5px] mr-2"
+              className="w-full mr-2"
             />
             <div className="rounded-md px-2 absolute right-4 bottom-4 text-white bg-gray-300 text-[0.9rem]">{i+1}/{arr.length}</div>
           </div>

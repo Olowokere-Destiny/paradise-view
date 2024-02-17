@@ -133,7 +133,7 @@ function BookingBox() {
         <input
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Search location"
+          placeholder="Where are you going?"
           className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
         />
         {response?.length > 0 ? <List /> : null}

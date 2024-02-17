@@ -11,7 +11,7 @@ interface SingleHotelProps {
   priceBreakdown: { grossPrice: {value: number, currency: string} };
   reviewScore: number;
   reviewScoreWord: string;
-  reviewScoreCount: number;
+  reviewCount: number;
   id: number;
 }
 function HotelsList() {
@@ -40,7 +40,7 @@ function HotelsList() {
           return (
             <SingleHotel
               key={hotel.name + Math.random().toString()}
-              reviewScoreCount={hotel.reviewScoreCount}
+              reviewCount={hotel.reviewCount}
               reviewScoreWord={hotel.reviewScoreWord}
               photoMainUrl={hotel.photoMainUrl}
               name={hotel.name}

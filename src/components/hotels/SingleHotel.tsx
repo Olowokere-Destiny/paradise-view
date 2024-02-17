@@ -10,7 +10,7 @@ interface Props {
   wishlistName: string;
   priceBreakdown: { grossPrice?: { value: number; currency: string } };
   reviewScore: number;
-  reviewScoreCount: number;
+  reviewCount: number;
   reviewScoreWord: string;
   id: number;
 }
@@ -21,7 +21,7 @@ function SingleHotel({
   priceBreakdown,
   reviewScore,
   reviewScoreWord,
-  reviewScoreCount,
+  reviewCount,
   id,
 }: Props) {
   const checkin = new URL(window?.location.href).searchParams.get(
@@ -70,7 +70,12 @@ function SingleHotel({
           <p className="text-gray-600 text-[0.8rem] font-[600] ">
             <span>{wishlistName}</span>
           </p>
-          {reviewScoreWord && reviewScoreCount ? <p>This property is <b>{reviewScoreWord}</b> according to <b>{reviewScoreCount}</b> reviews </p> : null}
+          {reviewScoreWord && reviewCount ? (
+            <p className="text-gray-600 text-[0.7rem] font-[500]">
+              This property is <b>{reviewScoreWord}</b> according to{" "}
+              <b>{reviewCount}</b> {reviewCount > 1 ? "reviews" : "review"}{" "}
+            </p>
+          ) : null}
         </div>
       </div>
       <div className="flex justify-end mt-3">
