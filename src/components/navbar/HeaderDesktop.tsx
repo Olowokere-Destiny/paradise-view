@@ -28,9 +28,9 @@ function HeaderDesktop() {
         ))}
       </div>
 
-      <div className="rounded-[0.3rem] lg:px-[2.3rem] md:px-[1.8rem] md:py-[0.7rem] lg:py-[0.9rem] bg-brown text-white ">
+      <Link href="/" className="rounded-[0.3rem] lg:px-[2.3rem] md:px-[1.8rem] md:py-[0.7rem] lg:py-[0.9rem] bg-brown text-white ">
         Book now
-      </div>
+      </Link>
     </div>
   );
 }

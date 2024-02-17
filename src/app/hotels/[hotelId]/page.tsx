@@ -12,6 +12,7 @@ import {
 } from "@/redux/fetchData/service";
 import FullLoading from "@/components/loading/FullLoading";
 import InlineLoading from "@/components/loading/InlineLoading";
+import { useEffect, useState } from "react";
 interface Props {
   params: {
     hotelId: string;
@@ -83,42 +84,50 @@ function constructDate() {
 }
 const alternativeDates = constructDate();
 
-const checkin =
-  new URL(window?.location.href).searchParams.get("checkin_date") ||
-  alternativeDates.today;
-const checkout =
-  new URL(window?.location.href).searchParams.get("checkout_date") ||
-  alternativeDates.nextWeekDate;
-const currency =
-  new URL(window?.location.href).searchParams.get("currency") || "NGN";
-
 // dummy states
-// const hotelDataLoading = false;
-// const descriptionLoading = false;
-// const photosLoading = false;
-// const hotelDataError = false;
-// const descriptionError = false;
-// const photosError = false;
+const hotelDataLoading = false;
+const descriptionLoading = false;
+const photosLoading = false;
+const hotelDataError = false;
+const descriptionError = false;
+const photosError = false;
 
 function Hotel({ params: { hotelId } }: Props) {
-  const {
-    data: hotelData,
-    isLoading: hotelDataLoading,
-    isError: hotelDataError,
-  } = useGetHotelDetailsQuery(
-    `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
-  ) as { data: HotelData; isLoading: boolean; isError: boolean };
-  const {
-    data: description,
-    isLoading: descriptionLoading,
-    isError: descriptionError,
-  } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
-  const {
-    data: photosArr,
-    isLoading: photosLoading,
-    isError: photosError,
-  } = useGetPhotosQuery(hotelId);
-  const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
+  const [checkin, setCheckin] = useState<string>();
+  const [checkout, setCheckout] = useState<string>();
+  const [currency, setCurrency] = useState<string>();
+  useEffect(() => {
+    const checkin =
+      new URL(window?.location.href).searchParams.get("checkin_date") ||
+      alternativeDates.today;
+    const checkout =
+      new URL(window?.location.href).searchParams.get("checkout_date") ||
+      alternativeDates.nextWeekDate;
+    const currency =
+      new URL(window?.location.href).searchParams.get("currency") || "NGN";
+    setCheckin(checkin);
+    setCheckout(checkout);
+    setCurrency(currency);
+  }, []);
+
+  // const {
+  //   data: hotelData,
+  //   isLoading: hotelDataLoading,
+  //   isError: hotelDataError,
+  // } = useGetHotelDetailsQuery(
+  //   `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
+  // ) as { data: HotelData; isLoading: boolean; isError: boolean };
+  // const {
+  //   data: description,
+  //   isLoading: descriptionLoading,
+  //   isError: descriptionError,
+  // } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
+  // const {
+  //   data: photosArr,
+  //   isLoading: photosLoading,
+  //   isError: photosError,
+  // } = useGetPhotosQuery(hotelId);
+  // const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
 
   return (
     <>
@@ -196,7 +205,7 @@ function Hotel({ params: { hotelId } }: Props) {
             <div
               className={`font-[500] px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem] text-[1.1rem] md:text-[1.3rem] ${raleway.className} text-slate-700 `}
             >
-              {description?.description}
+              {description}
             </div>
           )}
           <div className="flex justify-center">
@@ -209,6 +218,12 @@ function Hotel({ params: { hotelId } }: Props) {
           </div>
         </div>
       )}
+
+      {/* map goes here */}
+      {/* Looking for a map service without that doesn't ask for my card details :( */}
+      {/* <div>
+
+      </div> */}
     </>
   );
 }

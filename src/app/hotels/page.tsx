@@ -16,7 +16,11 @@ interface SingleHotelProps {
   id: number;
 }
 function HotelsList() {
-  const { search } = new URL(window?.location.href);
+  const [search, setSearch] = useState<string>()
+  useEffect(() => {
+    const { search } = new URL(window?.location.href);
+    setSearch(search)
+  }, [])
   const [page, setPage] = useState(0);
   const [hotelList, setHotelList] = useState<SingleHotelProps[]>([]);
   const { data: hotelsResult, isLoading, isError } = useGetHotelsQuery(search);
