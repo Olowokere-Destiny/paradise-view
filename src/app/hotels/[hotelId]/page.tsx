@@ -12,6 +12,7 @@ import {
 } from "@/redux/fetchData/service";
 import FullLoading from "@/components/loading/FullLoading";
 import InlineLoading from "@/components/loading/InlineLoading";
+import { useEffect, useState } from "react";
 interface Props {
   params: {
     hotelId: string;
@@ -83,15 +84,6 @@ function constructDate() {
 }
 const alternativeDates = constructDate();
 
-const checkin =
-  new URL(window?.location.href).searchParams.get("checkin_date") ||
-  alternativeDates.today;
-const checkout =
-  new URL(window?.location.href).searchParams.get("checkout_date") ||
-  alternativeDates.nextWeekDate;
-const currency =
-  new URL(window?.location.href).searchParams.get("currency") || "NGN";
-
 // dummy states
 const hotelDataLoading = false;
 const descriptionLoading = false;
@@ -101,6 +93,23 @@ const descriptionError = false;
 const photosError = false;
 
 function Hotel({ params: { hotelId } }: Props) {
+  const [checkin, setCheckin] = useState<string>();
+  const [checkout, setCheckout] = useState<string>();
+  const [currency, setCurrency] = useState<string>();
+  useEffect(() => {
+    const checkin =
+      new URL(window?.location.href).searchParams.get("checkin_date") ||
+      alternativeDates.today;
+    const checkout =
+      new URL(window?.location.href).searchParams.get("checkout_date") ||
+      alternativeDates.nextWeekDate;
+    const currency =
+      new URL(window?.location.href).searchParams.get("currency") || "NGN";
+    setCheckin(checkin);
+    setCheckout(checkout);
+    setCurrency(currency);
+  }, []);
+
   // const {
   //   data: hotelData,
   //   isLoading: hotelDataLoading,

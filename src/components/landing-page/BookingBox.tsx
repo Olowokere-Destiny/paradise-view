@@ -23,7 +23,11 @@ function BookingBox() {
     checkout_date: string;
     [key: string]: string;
   }
-  const url = new URL(`${window?.location.href}/hotels`);
+  const [url, setUrl] = useState<URL | undefined>();
+  useEffect(()=>{
+    const url = new URL(`${window?.location.href}/hotels`);
+    setUrl(url)
+  },[])
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [validateError, setvalidateError] = useState<string | null>();
@@ -71,7 +75,7 @@ function BookingBox() {
 
   function getHotels(params: ParamsProp) {
     for (let x in params) {
-      url.searchParams.set(x, params[x]);
+      url?.searchParams.set(x, params[x]);
     }
     const validateRes: string | boolean = validate(params);
     if (validateRes !== true) {
