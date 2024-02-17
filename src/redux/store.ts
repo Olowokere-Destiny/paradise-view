@@ -1,7 +1,7 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
-import locationsSlice from "./slice/locationsSlice";
-import { hotelsService } from "./fetchData/service";
+import globalState from "./slice/state";
+import { hotelsServiceV1, hotelsServiceV2 } from "./fetchData/service";
 // import { persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
@@ -18,11 +18,15 @@ import { hotelsService } from "./fetchData/service";
 
 const store = configureStore({
   reducer: {
-    location: locationsSlice,
-    [hotelsService.reducerPath]: hotelsService.reducer,
+    state: globalState,
+    [hotelsServiceV1.reducerPath]: hotelsServiceV1.reducer,
+    [hotelsServiceV2.reducerPath]: hotelsServiceV2.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([hotelsService.middleware]),
+    getDefaultMiddleware().concat([
+      hotelsServiceV2.middleware,
+      hotelsServiceV1.middleware,
+    ]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

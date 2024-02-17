@@ -5,38 +5,30 @@ import { useGetHotelsQuery } from "@/redux/fetchData/service";
 import getMoreHotels from "@/utils/getMoreHotels";
 interface SingleHotelProps {
   city: string;
-  max_photo_url: string;
-  hotel_name: string;
-  accommodation_type_name: string;
-  distances: [{ text: string }];
-  price_breakdown: { gross_price: number | string; currency: string };
-  review_score: string | number;
-  hotel_id: number | string;
-  address: string;
+  photoMainUrl: string;
+  name: string;
+  wishlistName: string;
+  priceBreakdown: { grossPrice: {value: number, currency: string} };
+  reviewScore: number;
+  reviewScoreWord: string;
+  reviewScoreCount: number;
+  id: number;
 }
 function HotelsList() {
   const { search } = new URL(window?.location.href);
   const [page, setPage] = useState(0);
   const [hotelList, setHotelList] = useState<SingleHotelProps[]>([]);
-  // function constructObject() {
-  //   const searchParams = new URLSearchParams(window?.location.search);
-  //   const queryParamsObject: { [key: string]: string } = {};
-  //   for (const [key, value] of searchParams) {
-  //     queryParamsObject[key] = value;
-  //   }
-  //   return queryParamsObject;
-  // }
-  // const parameters = constructObject();
+
   const { data: hotelsResult } = useGetHotelsQuery(search);
   useEffect(() => {
-    setHotelList(hotelsResult?.result);
-  }, [hotelsResult?.result]);
+    setHotelList(hotelsResult?.results);
+  }, [hotelsResult?.results]);
 
   function showMore() {
     setPage(page + 1);
     getMoreHotels(`${search}&page_number=${page.toString()}`).then((res) => {
       setHotelList((prev) => {
-        return [...prev, ...res?.result];
+        return [...prev, ...res?.results];
       });
     });
   }
@@ -47,16 +39,15 @@ function HotelsList() {
         {hotelList?.map((hotel) => {
           return (
             <SingleHotel
-              key={hotel.hotel_name + Math.random().toString()}
-              city={hotel.city}
-              max_photo_url={hotel.max_photo_url}
-              hotel_name={hotel.hotel_name}
-              address={hotel.address}
-              accommodation_type_name={hotel.accommodation_type_name}
-              distances={hotel.distances}
-              price_breakdown={hotel.price_breakdown}
-              review_score={hotel.review_score?.toString()}
-              hotel_id={hotel.hotel_id.toString()}
+              key={hotel.name + Math.random().toString()}
+              reviewScoreCount={hotel.reviewScoreCount}
+              reviewScoreWord={hotel.reviewScoreWord}
+              photoMainUrl={hotel.photoMainUrl}
+              name={hotel.name}
+              wishlistName={hotel.wishlistName}
+              priceBreakdown={hotel.priceBreakdown}
+              reviewScore={hotel.reviewScore}
+              id={hotel.id}
             />
           );
         })}

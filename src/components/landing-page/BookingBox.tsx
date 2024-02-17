@@ -2,6 +2,7 @@ import getLocations from "@/utils/getLocation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import validate from "@/utils/paramsValidator";
+import currencies from "@/utils/currencies";
 function BookingBox() {
   interface LocationProp {
     dest_id: string;
@@ -27,10 +28,10 @@ function BookingBox() {
   const [inputValue, setInputValue] = useState("");
   const [validateError, setvalidateError] = useState<string | null>();
   const [params, setParams] = useState<ParamsProp>({
-    order_by: "",
+    order_by: "popularity",
     dest_type: "city",
     dest_id: "",
-    filter_by_currency: "USD",
+    filter_by_currency: "",
     locale: "en-gb",
     units: "metric",
     room_number: "",
@@ -53,12 +54,10 @@ function BookingBox() {
               error && setError(error);
             });
         }
-      }, 2000);
+      }, 1000);
       return () => clearTimeout(timeoutFunc);
     }
   }, [inputValue, params.dest_id]);
-  // console.log(response);
-  // console.log(error);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -82,7 +81,7 @@ function BookingBox() {
       }, 1500);
     } else if (validateRes === true) {
       setvalidateError(null);
-      router.push(`${url}`);
+      router.push(`${url}`)
     }
   }
 
@@ -98,6 +97,9 @@ function BookingBox() {
     }
     return (
       <div className="bg-white rounded-md absolute p-2 top-[110%] custom-shadow left-0">
+        {
+          error && <p className="text-center">An error occured</p>
+        }
         {response
           ?.filter((city: LocationProp) => city.dest_type === "city")
           .map((city: LocationProp, i: number) => {
@@ -126,29 +128,30 @@ function BookingBox() {
 
   return (
     <div className="rounded-[0.6rem] p-4 border border-[#b1b1b1] my-12 md:my-16  mx-[0.8rem] md:mx-[3rem] lg:mx-[5rem]">
-      <div className="grid-cols-2 grid md:grid-cols-3 items-start md:items-center place-items-center gap-y-4 lg:flex lg:justify-between">
-        <div className="relative">
-          <p className="font-[600]">Location</p>
-          <input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Search location"
-            className="block border-[1.5px] border-[#666] w-[6rem] md:w-[8rem] placeholder:text-[0.8rem] mt-2 p-2 focus:outline-none rounded-md"
-          />
-          {response?.length > 0 ? <List /> : null}
-        </div>
+      <div className="relative my-2">
+        <p className="font-[600]">Location</p>
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Search location"
+          className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
+        />
+        {response?.length > 0 ? <List /> : null}
+      </div>
+      <div className="custom-grid grid-cols-3 grid md:grid-cols-4 items-start md:items-center md:place-items-start gap-y-4 lg:flex lg:justify-between">
         <div>
-          <p className="font-[600]">Order by</p>
+          <p className="font-[600]">Currency</p>
           <select
-            className="mt-2 md:-ml-1"
-            name="order_by"
+            className="mt-2 md:-ml-1 w-[6rem] md:w-[8rem]"
+            name="filter_by_currency"
             onChange={(e) => handleChange(e)}
-            value={params.order_by}
+            value={params.filter_by_currency}
           >
-            <option value="">Select</option>
-            <option value="popularity">Popularity</option>
-            <option value="review_score">Review score</option>
-            <option value="price">Price</option>
+            {currencies.map((currency, i) => (
+              <option key={currency + i.toString()} value={currency}>
+                {currency}
+              </option>
+            ))}
           </select>
         </div>
         <div>

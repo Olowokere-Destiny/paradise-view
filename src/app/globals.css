@@ -23,6 +23,12 @@
   box-shadow: 0px 4px 30px -5px rgba(0, 0, 0, 0.15);
 }
 
+@media screen and (max-width: 300px) {
+  .custom-grid {
+    grid-template-columns: auto auto;
+  }
+}
+
 .animate-slideup {
   animation: slideup 1s ease-in-out forwards;
 }
