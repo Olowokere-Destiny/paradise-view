@@ -51,6 +51,12 @@ export default function Home() {
             Every moment feels like the first time
             <br className="hidden md:block" /> in the hotels we offer.
           </p>
+          <p
+            className={`${raleway.className} text-[#1c1c1c] text-[1rem] lg:text-[1.3rem] font-[500] mt-[0.7rem] lg:mt-4`}
+          >
+            Search for a location of your choice below and see available hotels,
+            apartments and more.
+          </p>
         </div>
         <Image
           src={heroHouse}
