@@ -44,7 +44,7 @@ function HotelsList() {
       {isLoading ? (
         <FullLoading />
       ) : isError ? (
-        <div className="flex items-center justify-center h-screen text-red-600 font-[500]">
+        <div className="flex items-center justify-center h-screen text-red-600 font-[600]">
           An error occured.
         </div>
       ) : (

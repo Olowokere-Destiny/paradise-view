@@ -3,6 +3,7 @@ import Slide from "@/components/react-slick/Slide";
 import { raleway } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
+import stripeCheckout from "@/utils/stripeCheckout";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -37,33 +38,33 @@ interface HotelData {
   };
 }
 
-// const photos = [
-//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/331395602.jpg?k=469cc9865e3ee3d32bc8f9916c293bc82b754b778c3436ff19c2b2b069870a14&o=",
-//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54629815.jpg?k=faedd002cc7aa5b14a21e2464c185530fb166f6a0c7ebb57ee12c66349ae1b9e&o=",
-//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/58016890.jpg?k=e05fcff350c8d7d8e1d40f4a368255e004058ce6e86b4355214e0ec399d28754&o=",
-//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54631278.jpg?k=3b37c2dd55100f78a19fe8ff178d2a7717dafc9ed3c1d6983cac360ee7916506&o=",
-//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/188927080.jpg?k=521e70cb127adc857d948a364eaa295cb10728745973fe66eb59e33b2b4b006e&o=",
-// ];
-// const description =
-//   "Guests travelling with children must inform the property in advance how many will be staying and of their ages upon booking. Contact details can be found on the booking confirmation. When booking 10 rooms or more, different policies and additional supplements may apply. In response to Coronavirus (COVID-19), additional safety and sanitation measures are in effect at this property.";
+const photos = [
+  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/331395602.jpg?k=469cc9865e3ee3d32bc8f9916c293bc82b754b778c3436ff19c2b2b069870a14&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54629815.jpg?k=faedd002cc7aa5b14a21e2464c185530fb166f6a0c7ebb57ee12c66349ae1b9e&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/58016890.jpg?k=e05fcff350c8d7d8e1d40f4a368255e004058ce6e86b4355214e0ec399d28754&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54631278.jpg?k=3b37c2dd55100f78a19fe8ff178d2a7717dafc9ed3c1d6983cac360ee7916506&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/188927080.jpg?k=521e70cb127adc857d948a364eaa295cb10728745973fe66eb59e33b2b4b006e&o=",
+];
+const description =
+  "Guests travelling with children must inform the property in advance how many will be staying and of their ages upon booking. Contact details can be found on the booking confirmation. When booking 10 rooms or more, different policies and additional supplements may apply. In response to Coronavirus (COVID-19), additional safety and sanitation measures are in effect at this property.";
 
-// const hotelData: HotelData = {
-//   url: "https://www.booking.com/hotel/de/riu-plaza-berlin.html",
-//   hotel_name: "Riu Plaza Berlin",
-//   city: "Berlin",
-//   accommodation_type_name: "Hotel",
-//   latitude: 52.5002932226084,
-//   longitude: 13.3467457829422,
-//   address: "Martin-Luther-Strasse 1",
-//   country_trans: "Germany",
-//   composite_price_breakdown: {
-//     gross_amount: {
-//       currency: "AED",
-//       value: 612.671783780459,
-//     },
-//   },
-//   hotel_id: 1377073,
-// };
+const hotelData: HotelData = {
+  url: "https://www.booking.com/hotel/de/riu-plaza-berlin.html",
+  hotel_name: "Riu Plaza Berlin",
+  city: "Berlin",
+  accommodation_type_name: "Hotel",
+  latitude: 52.5002932226084,
+  longitude: 13.3467457829422,
+  address: "Martin-Luther-Strasse 1",
+  country_trans: "Germany",
+  composite_price_breakdown: {
+    gross_amount: {
+      currency: "AED",
+      value: 612.671783780459,
+    },
+  },
+  hotel_id: 1377073,
+};
 
 function constructDate() {
   const currentDate = new Date();
@@ -86,12 +87,12 @@ function constructDate() {
 const alternativeDates = constructDate();
 
 // dummy states
-// const hotelDataLoading = false;
-// const descriptionLoading = false;
-// const photosLoading = false;
-// const hotelDataError = false;
-// const descriptionError = false;
-// const photosError = false;
+const hotelDataLoading = false;
+const descriptionLoading = false;
+const photosLoading = false;
+const hotelDataError = false;
+const descriptionError = false;
+const photosError = false;
 
 function Hotel({ params: { hotelId } }: Props) {
   const [checkin, setCheckin] = useState<string>();
@@ -111,29 +112,29 @@ function Hotel({ params: { hotelId } }: Props) {
     setCurrency(currency);
   }, []);
 
-  const {
-    data: hotelData,
-    isLoading: hotelDataLoading,
-    isError: hotelDataError,
-  } = useGetHotelDetailsQuery(
-    `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
-  ) as { data: HotelData; isLoading: boolean; isError: boolean };
-  const {
-    data: description,
-    isLoading: descriptionLoading,
-    isError: descriptionError,
-  } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
-  const {
-    data: photosArr,
-    isLoading: photosLoading,
-    isError: photosError,
-  } = useGetPhotosQuery(hotelId);
-  const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
+  // const {
+  //   data: hotelData,
+  //   isLoading: hotelDataLoading,
+  //   isError: hotelDataError,
+  // } = useGetHotelDetailsQuery(
+  //   `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
+  // ) as { data: HotelData; isLoading: boolean; isError: boolean };
+  // const {
+  //   data: description,
+  //   isLoading: descriptionLoading,
+  //   isError: descriptionError,
+  // } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
+  // const {
+  //   data: photosArr,
+  //   isLoading: photosLoading,
+  //   isError: photosError,
+  // } = useGetPhotosQuery(hotelId);
+  // const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
 
   return (
     <>
       {hotelDataError ? (
-        <div className="flex items-center justify-center h-screen text-red-600 font-[500]">
+        <div className="flex items-center justify-center h-screen text-red-600 font-[600]">
           An error occured.
         </div>
       ) : hotelDataLoading ? (
@@ -190,7 +191,7 @@ function Hotel({ params: { hotelId } }: Props) {
           {photosLoading ? (
             <InlineLoading />
           ) : photosError ? (
-            <p className="text-center m-4 text-red-500">
+            <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting photos
             </p>
           ) : (
@@ -199,18 +200,18 @@ function Hotel({ params: { hotelId } }: Props) {
           {descriptionLoading ? (
             <InlineLoading />
           ) : descriptionError ? (
-            <p className="text-center m-4 text-red-500">
+            <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting description.
             </p>
           ) : (
             <div
               className={`font-[500] px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem] text-[1.1rem] md:text-[1.3rem] ${raleway.className} text-slate-700 `}
             >
-              {description?.description}
+              {description}
             </div>
           )}
           <div className="flex justify-center">
-            <button className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4">
+            <button className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4" onClick={()=>{stripeCheckout()}}>
               Pay {hotelData?.composite_price_breakdown?.gross_amount?.currency}{" "}
               {hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(
                 0

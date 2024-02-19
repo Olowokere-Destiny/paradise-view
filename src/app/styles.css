@@ -1,6 +1,21 @@
 .rooms-section {
-    background-image: url("../assets/rooms-bg.png");
-    background-repeat: no-repeat;
-    background-position: top;
-    background-size: cover;
+  background-image: url("../assets/rooms-bg.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+}
+
+.world-bg {
+  /* height: 40rem; */
+  background-image: url("../assets/snapshot_map.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+}
+
+.gradient-text {
+  background: -webkit-linear-gradient(rgb(240, 147, 131), orange, rgb(230, 187, 108));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
