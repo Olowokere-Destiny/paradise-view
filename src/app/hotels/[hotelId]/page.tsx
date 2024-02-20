@@ -131,6 +131,8 @@ function Hotel({ params: { hotelId } }: Props) {
   // } = useGetPhotosQuery(hotelId);
   // const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
 
+  // const checkoutParams =
+
   return (
     <>
       {hotelDataError ? (
@@ -211,7 +213,19 @@ function Hotel({ params: { hotelId } }: Props) {
             </div>
           )}
           <div className="flex justify-center">
-            <button className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4" onClick={()=>{stripeCheckout()}}>
+            <button
+              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
+              onClick={() => {
+                stripeCheckout({
+                  lineItems: [
+                    {
+                      price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+                      quantity: 1,
+                    },
+                  ],
+                });
+              }}
+            >
               Pay {hotelData?.composite_price_breakdown?.gross_amount?.currency}{" "}
               {hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(
                 0
