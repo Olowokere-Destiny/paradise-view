@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 interface Props {
   photoMainUrl: string;
   name: string;
@@ -12,6 +13,8 @@ interface Props {
   reviewScore: number;
   reviewCount: number;
   reviewScoreWord: string;
+  checkoutDate: string;
+  checkinDate: string;
   id: number;
 }
 function SingleHotel({
@@ -22,6 +25,8 @@ function SingleHotel({
   reviewScore,
   reviewScoreWord,
   reviewCount,
+  checkinDate,
+  checkoutDate,
   id,
 }: Props) {
   const checkin = new URL(window?.location.href).searchParams.get(
@@ -42,6 +47,17 @@ function SingleHotel({
       return "bg-green-100 text-green-400";
     }
   };
+  function staysCalc(checkin: string, checkout: string) {
+    const startDate = new Date(checkin);
+    const endDate = new Date(checkout);
+    const timeDiff = endDate.getTime() - startDate.getTime();
+    const dayDiff = timeDiff / (1000 * 3600 * 24);
+    if (dayDiff > 1) {
+      return `${dayDiff} Days, ${dayDiff - 1} Nights`;
+    } else if (dayDiff === 1) {
+      return `${dayDiff} Day, ${dayDiff} Night`;
+    }
+  }
 
   return (
     <div className="relative border border-gray-300 rounded-[0.3rem] p-4 hover:outline hover:outline-[3px] hover:outline-gray-200 outline-offset-1 hover:border-none">
@@ -67,7 +83,10 @@ function SingleHotel({
           <h2 className="font-[600] text-[1.2rem] text-brown overflow-auto">
             {name}
           </h2>
-          <p className="text-gray-600 text-[0.8rem] font-[600] ">
+          <p className="text-gray-600 text-[0.8rem] font-[600] flex items-center">
+            <span>
+              <FaLocationDot className="mr-[2px]" />
+            </span>
             <span>{wishlistName}</span>
           </p>
           {reviewScoreWord && reviewCount ? (
@@ -79,6 +98,9 @@ function SingleHotel({
         </div>
       </div>
       <div className="flex justify-end mt-3">
+        <h2 className="font-[600] text-[1.1rem] md:text-[1.3rem]">{staysCalc(checkinDate, checkoutDate)}</h2>
+      </div>
+      <div className="flex justify-end mt-1">
         <h2
           className={`text-[1.2rem] font-[600] md:text-[1.4rem] text-orange-400 bg-orange-100 rounded-md p-2 w-max ${lora.className}`}
         >
