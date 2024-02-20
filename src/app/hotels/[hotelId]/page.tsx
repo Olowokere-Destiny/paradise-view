@@ -3,6 +3,7 @@ import Slide from "@/components/react-slick/Slide";
 import { raleway } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
+import stripeCheckout from "@/utils/stripeCheckout";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -133,7 +134,7 @@ function Hotel({ params: { hotelId } }: Props) {
   return (
     <>
       {hotelDataError ? (
-        <div className="flex items-center justify-center h-screen text-red-600 font-[500]">
+        <div className="flex items-center justify-center h-screen text-red-600 font-[600]">
           An error occured.
         </div>
       ) : hotelDataLoading ? (
@@ -190,7 +191,7 @@ function Hotel({ params: { hotelId } }: Props) {
           {photosLoading ? (
             <InlineLoading />
           ) : photosError ? (
-            <p className="text-center m-4 text-red-500">
+            <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting photos
             </p>
           ) : (
@@ -199,7 +200,7 @@ function Hotel({ params: { hotelId } }: Props) {
           {descriptionLoading ? (
             <InlineLoading />
           ) : descriptionError ? (
-            <p className="text-center m-4 text-red-500">
+            <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting description.
             </p>
           ) : (
@@ -210,7 +211,19 @@ function Hotel({ params: { hotelId } }: Props) {
             </div>
           )}
           <div className="flex justify-center">
-            <button className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4">
+            <button
+              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
+              onClick={() => {
+                stripeCheckout({
+                  lineItems: [
+                    {
+                      price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+                      quantity: 1,
+                    },
+                  ],
+                });
+              }}
+            >
               Pay {hotelData?.composite_price_breakdown?.gross_amount?.currency}{" "}
               {hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(
                 0

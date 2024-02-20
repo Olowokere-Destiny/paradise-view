@@ -4,6 +4,7 @@ import { dancingScript, raleway } from "@/utils/fontExports";
 import heroHouse from "../assets/landing-hero-house.png";
 import Image from "next/image";
 import FacilitiesCard from "@/components/landing-page/FacilitiesCard";
+import bag from "../assets/baggage.jpg";
 import swimmingIcon from "../assets/swimming-svg.svg";
 import wifiIcon from "../assets/wifi-svg.svg";
 import breakfastIcon from "../assets/chicken-svg.svg";
@@ -117,6 +118,27 @@ export default function Home() {
             title="Double bed luxury"
           />
         </div>
+      </div>
+
+      <div className="world-bg px-[0.8rem] md:px-0 md:pl-[3rem] lg:px-0 lg:pl-[5rem] flex flex-col md:flex-row items-center gap-x-8 gap-y-4 justify-between my-10">
+        <div className="md:w-1/2 flex flex-col gap-y-2">
+          <h1 className="font-[700] text-[2.3rem] lg:text-[3.2rem] gradient-text ">
+            Find your next adventure!
+          </h1>
+          <p className="text-[1.4rem] lg:text-[1.8rem] font-[600] ">
+            You love travelling? Yes? You can find hotels, apartments and
+            attractions from any location around the globe!{" "}
+          </p>
+        </div>
+      <div className="md:w-1/2 self-stretch">
+        <Image
+          src={bag}
+          width={150}
+          height={100}
+          alt="bag"
+          className="w-full"
+        />
+      </div>
       </div>
     </div>
   );
