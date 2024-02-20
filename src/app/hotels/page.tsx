@@ -13,6 +13,8 @@ interface SingleHotelProps {
   reviewScore: number;
   reviewScoreWord: string;
   reviewCount: number;
+  checkoutDate: string;
+  checkinDate: string;
   id: number;
 }
 function HotelsList() {
@@ -21,7 +23,7 @@ function HotelsList() {
     const { search } = new URL(window?.location.href);
     setSearch(search)
   }, [])
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [hotelList, setHotelList] = useState<SingleHotelProps[]>([]);
   const { data: hotelsResult, isLoading, isError } = useGetHotelsQuery(search);
   useEffect(() => {
@@ -49,7 +51,7 @@ function HotelsList() {
         </div>
       ) : (
         <div>
-          <div className="flex flex-col lg:grid grid-cols-2 lg:gap-4 gap-y-4 px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-10">
+          <div className="min-h-screen flex flex-col lg:grid grid-cols-2 lg:gap-4 gap-y-4 px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-10">
             {hotelList?.map((hotel) => {
               return (
                 <SingleHotel
@@ -62,6 +64,8 @@ function HotelsList() {
                   priceBreakdown={hotel.priceBreakdown}
                   reviewScore={hotel.reviewScore}
                   id={hotel.id}
+                  checkoutDate={hotel.checkoutDate}
+                  checkinDate={hotel.checkinDate}
                 />
               );
             })}

@@ -161,7 +161,7 @@ function Hotel({ params: { hotelId } }: Props) {
                 >
                   {hotelData?.hotel_name}
                   {hotelData?.accommodation_type_name && (
-                    <span className="text-[0.7rem] rounded-md ml-2 px-1 bg-light-brown text-white">
+                    <span className="text-[0.7rem] rounded-md ml-2 px-1 bg-light-brown text-white self-start mt-3">
                       {hotelData?.accommodation_type_name}
                     </span>
                   )}

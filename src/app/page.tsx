@@ -125,7 +125,7 @@ export default function Home() {
           <h1 className="font-[700] text-[2.3rem] lg:text-[3.2rem] gradient-text ">
             Find your next adventure!
           </h1>
-          <p className="text-[1.4rem] lg:text-[1.8rem] font-[600] ">
+          <p className="text-[1.1rem] md:text-[1.4rem] lg:text-[1.8rem] font-[600] ">
             You love travelling? Yes? You can find hotels, apartments and
             attractions from any location around the globe!{" "}
           </p>
