@@ -1,11 +1,13 @@
 "use client";
 import Slide from "@/components/react-slick/Slide";
-import { raleway } from "@/utils/fontExports";
+import { poppins, raleway } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
 import stripeCheckout from "@/utils/stripeCheckout";
+import { MdOutlineDescription } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+import { IoFastFoodOutline, IoWifiOutline } from "react-icons/io5";
+import { FaLocationDot, FaCircleCheck } from "react-icons/fa6";
 import {
   useGetPhotosQuery,
   useGetDescriptionQuery,
@@ -30,6 +32,16 @@ interface HotelData {
   address: string;
   country_trans: string;
   hotel_id: number;
+  wifi_review_score: {
+    rating: number;
+  };
+  breakfast_review_score: {
+    review_score_word: string;
+    review_score: number;
+  };
+  facilities_block: {
+    facilities: { name: string }[];
+  };
   composite_price_breakdown: {
     gross_amount: {
       currency: string;
@@ -192,7 +204,7 @@ function Hotel({ params: { hotelId } }: Props) {
             <InlineLoading />
           ) : photosError ? (
             <p className="text-center m-4 text-red-500 font-[600]">
-              There was an error getting photos
+              There was an error getting photos. Try again later
             </p>
           ) : (
             <Slide photos={photos} />
@@ -201,15 +213,60 @@ function Hotel({ params: { hotelId } }: Props) {
             <InlineLoading />
           ) : descriptionError ? (
             <p className="text-center m-4 text-red-500 font-[600]">
-              There was an error getting description.
+              There was an error getting description. Try again later
             </p>
           ) : (
             <div
-              className={`font-[500] px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem] text-[1.1rem] md:text-[1.3rem] ${raleway.className} text-slate-700 `}
+              className={`px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem]`}
             >
-              {description?.description}
+              <h2 className="flex items-center font-[600] text-[1.6rem] md:text-[1.8rem] text-black">
+                <span>Description</span>
+                <MdOutlineDescription />
+              </h2>
+              <p className={`${raleway.className} font-[500] text-[1.1rem] md:text-[1.3rem] text-slate-700`}>{description?.description}</p>
             </div>
           )}
+
+          <div className="my-6 px-[0.8rem] md:px-[3rem] lg:px-[5rem]">
+            <h2 className="text-center font-[600] text-[1.6rem] md:text-[1.8rem]">
+              Hotel offerings
+            </h2>
+            <div className="flex flex-col gap-y-3 justify-center items-center md:flex-row md:justify-around mt-4">
+              {hotelData?.breakfast_review_score && (
+                <p className="font-[600] text-[1rem] flex items-center">
+                  <IoFastFoodOutline className="mr-2 text-[1.6rem]" />
+                  <span>Breakfast is available</span>{" "}
+                  <FaCircleCheck className="text-green-500 ml-2" />
+                </p>
+              )}
+              {hotelData?.wifi_review_score && (
+                <p className="font-[600] text-[1rem] flex items-center">
+                  <IoWifiOutline className="mr-2 text-[1.6rem]" />
+                  <span>Wi-FI is available</span>{" "}
+                  <FaCircleCheck className="text-green-500 ml-2" />
+                </p>
+              )}
+            </div>
+            {hotelData?.facilities_block?.facilities && (
+              <>
+                <h2 className="text-center mt-4 underline text-[1.2rem] font-[600]">
+                  Utilities
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 gap-y-2 gap-x-3">
+                  {hotelData?.facilities_block?.facilities.map((util, i) => {
+                    return (
+                      <p
+                        className={`${raleway.className} font-[600] text-slate-700`}
+                        key={i}
+                      >
+                        {util.name}
+                      </p>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
           <div className="flex justify-center">
             <button
               className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
