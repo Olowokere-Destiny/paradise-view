@@ -54,6 +54,8 @@ function SingleHotel({
     const dayDiff = timeDiff / (1000 * 3600 * 24);
     if (dayDiff > 1) {
       return `${dayDiff} Days, ${dayDiff - 1} Nights`;
+    } else if (dayDiff === 2) {
+      return `${dayDiff} Day, ${dayDiff - 1} Night`;
     } else if (dayDiff === 1) {
       return `${dayDiff} Day, ${dayDiff} Night`;
     }
@@ -98,7 +100,9 @@ function SingleHotel({
         </div>
       </div>
       <div className="flex justify-end mt-3">
-        <h2 className="font-[600] text-[1.1rem] md:text-[1.3rem]">{staysCalc(checkinDate, checkoutDate)}</h2>
+        <h2 className="font-[600] text-[1.1rem] md:text-[1.3rem]">
+          {staysCalc(checkinDate, checkoutDate)}
+        </h2>
       </div>
       <div className="flex justify-end mt-1">
         <h2
