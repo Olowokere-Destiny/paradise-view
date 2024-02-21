@@ -52,10 +52,10 @@ function SingleHotel({
     const endDate = new Date(checkout);
     const timeDiff = endDate.getTime() - startDate.getTime();
     const dayDiff = timeDiff / (1000 * 3600 * 24);
-    if (dayDiff > 1) {
+    if (dayDiff > 3) {
       return `${dayDiff} Days, ${dayDiff - 1} Nights`;
     } else if (dayDiff === 2) {
-      return `${dayDiff} Day, ${dayDiff - 1} Night`;
+      return `${dayDiff} Days, ${dayDiff - 1} Night`;
     } else if (dayDiff === 1) {
       return `${dayDiff} Day, ${dayDiff} Night`;
     }
