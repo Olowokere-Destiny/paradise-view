@@ -1,5 +1,7 @@
 "use client";
-import DynamicMap from "@/components/map";
+
+import GMap from "@/components/map/GMap";
+
 function Contact() {
   const lat = 6.5244;
   const lon = 3.3792;
@@ -41,7 +43,7 @@ function Contact() {
           </div>
         </form>
         <div className="my-8">
-          <DynamicMap center={{ lat, lon }} popupText="Lagos, Nigeria" zoom={10} />
+          <GMap lat={lat} lon={lon} zoom={10} />
         </div>
       </div>
     </div>
