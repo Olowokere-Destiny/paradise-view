@@ -1,6 +1,6 @@
 "use client";
 import Slide from "@/components/react-slick/Slide";
-import { poppins, raleway } from "@/utils/fontExports";
+import { raleway } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
 import stripeCheckout from "@/utils/stripeCheckout";
@@ -16,7 +16,7 @@ import {
 import FullLoading from "@/components/loading/FullLoading";
 import InlineLoading from "@/components/loading/InlineLoading";
 import { useEffect, useState } from "react";
-import DynamicMap from "@/components/map";
+import GMap from "@/components/map/GMap";
 interface Props {
   params: {
     hotelId: string;
@@ -292,11 +292,7 @@ function Hotel({ params: { hotelId } }: Props) {
 
       {hotelData?.latitude && hotelData?.longitude ? (
         <div className="px-[0.8rem] md:px-[3rem] lg:px-[5rem] mb-8">
-          <DynamicMap
-            popupText={hotelData?.hotel_name}
-            center={{ lat: hotelData?.latitude, lon: hotelData?.longitude }}
-            zoom={13}
-          />
+          <GMap lat={hotelData?.latitude} lon={hotelData?.longitude} zoom={15} />
         </div>
       ) : null}
     </>

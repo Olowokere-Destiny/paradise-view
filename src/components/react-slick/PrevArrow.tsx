@@ -7,7 +7,7 @@ const PrevArrow = ({ onClick }: SlideBtnProp) => {
   return (
     <FaAngleLeft
       onClick={onClick}
-      className="absolute left-[1.5rem] md:left-[4rem] lg:left-[6rem] top-[46%] z-[500] text-[1.5rem] cursor-pointer"
+      className="absolute left-[1.5rem] md:left-[4rem] lg:left-[6rem] top-[46%] z-[500] text-[1.5rem] cursor-pointer bg-white p-1 rounded-[3px]"
     />
   );
 };
