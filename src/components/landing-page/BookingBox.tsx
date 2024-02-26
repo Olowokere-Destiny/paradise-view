@@ -1,3 +1,4 @@
+"use client";
 import getLocations from "@/utils/getLocation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -24,10 +25,10 @@ function BookingBox() {
     [key: string]: string;
   }
   const [url, setUrl] = useState<URL | undefined>();
-  useEffect(()=>{
+  useEffect(() => {
     const url = new URL(`${window?.location.href}/hotels`);
-    setUrl(url)
-  },[])
+    setUrl(url);
+  }, []);
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [validateError, setvalidateError] = useState<string | null>();
@@ -85,7 +86,7 @@ function BookingBox() {
       }, 1500);
     } else if (validateRes === true) {
       setvalidateError(null);
-      router.push(`${url}`)
+      router.push(`${url}`);
     }
   }
 
@@ -101,9 +102,7 @@ function BookingBox() {
     }
     return (
       <div className="bg-white rounded-md absolute p-2 top-[110%] custom-shadow left-0">
-        {
-          error && <p className="text-center">An error occured</p>
-        }
+        {error && <p className="text-center">An error occured</p>}
         {response
           ?.filter((city: LocationProp) => city.dest_type === "city")
           .map((city: LocationProp, i: number) => {

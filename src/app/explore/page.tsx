@@ -5,6 +5,12 @@ import Section from "@/components/explore/Section";
 import sectionRoom from "../../assets/section-room.svg";
 import sectionGym from "../../assets/section-gym.svg";
 import sectionBar from "../../assets/section-bar.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Explore",
+  description: "Explore Paradise View",
+};
 function Explore() {
   return (
     <div>

@@ -7,6 +7,12 @@ import cbn from "../../assets/cbn.svg";
 import ncc from "../../assets/ncc.svg";
 import unicef from "../../assets/unicef.svg";
 import nirsal from "../../assets/nirsal.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "About Paradise View",
+};
 
 function About() {
   return (
