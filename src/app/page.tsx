@@ -1,4 +1,3 @@
-"use client";
 import "./styles.css";
 import { dancingScript, raleway } from "@/utils/fontExports";
 import heroHouse from "../assets/landing-hero-house.png";
@@ -18,6 +17,12 @@ import singleBed from "../assets/single-bed.png";
 import doubleBed from "../assets/double-bed.png";
 import doubleBedLuxury from "../assets/double-bed-luxury.png";
 import BookingBox from "@/components/landing-page/BookingBox";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Paradise View booking home page",
+};
 
 export default function Home() {
   // const currentUrl = new URL(window.location.href);

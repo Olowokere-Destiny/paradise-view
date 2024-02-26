@@ -1,5 +1,4 @@
 "use client";
-
 import GMap from "@/components/map/GMap";
 
 function Contact() {
