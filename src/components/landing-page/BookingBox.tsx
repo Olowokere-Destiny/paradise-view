@@ -120,7 +120,7 @@ function BookingBox() {
         {response?.length && response?.length < 1 ? (
           <p className="text-center text-[0.9rem] font-[600]">Not Found.</p>
         ) : null}
-        {response
+        {Array.isArray(response) && response
           ?.filter((city: LocationProp) => city.dest_type === "city")
           .map((city: LocationProp, i: number) => {
             return (
