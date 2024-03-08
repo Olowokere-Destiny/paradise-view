@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import validate from "@/utils/paramsValidator";
 import currencies from "@/utils/currencies";
+import InlineLoading from "../loading/InlineLoading";
 function BookingBox() {
   interface LocationProp {
     dest_id: string;
@@ -44,25 +45,33 @@ function BookingBox() {
     checkin_date: "",
     checkout_date: "",
   });
-  const [response, setResponse] = useState([]);
-  const [error, setError] = useState(null);
+  const [response, setResponse] = useState<null | any[]>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!params.dest_id || inputValue.trim().length < 3) {
       const timeoutFunc = setTimeout(() => {
         if (inputValue.trim().length > 0) {
+          setLoading(true);
           getLocations(inputValue)
             .then((res) => {
               setResponse(res);
+              setLoading(false);
             })
             .catch((error) => {
-              error && setError(error);
+              error && setError(true);
+              setLoading(false);
             });
         }
       }, 1000);
       return () => clearTimeout(timeoutFunc);
     }
   }, [inputValue, params.dest_id]);
+  
+  useEffect(() => {
+    setError(false);
+  }, [inputValue]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -93,7 +102,7 @@ function BookingBox() {
   // dropdown list
   function List() {
     function listAction(value: string, dest_id: string) {
-      setResponse([]);
+      setResponse(null);
       setInputValue(value);
       setParams((prev) => ({
         ...prev,
@@ -102,7 +111,15 @@ function BookingBox() {
     }
     return (
       <div className="bg-white rounded-md absolute p-2 top-[110%] custom-shadow left-0">
-        {error && <p className="text-center">An error occured</p>}
+        {error ? (
+          <p className="text-center text-[0.9rem] font-[600] px-4">
+            An error occured.
+          </p>
+        ) : null}
+        {loading && <InlineLoading styling="w-6 h-6 my-2 mx-10" />}
+        {response?.length && response?.length < 1 ? (
+          <p className="text-center text-[0.9rem] font-[600]">Not Found.</p>
+        ) : null}
         {response
           ?.filter((city: LocationProp) => city.dest_type === "city")
           .map((city: LocationProp, i: number) => {
@@ -139,7 +156,7 @@ function BookingBox() {
           placeholder="Where are you going?"
           className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
         />
-        {response?.length > 0 ? <List /> : null}
+        {inputValue?.trim().length > 0 ? <List /> : null}
       </div>
       <div className="custom-grid grid-cols-3 grid md:grid-cols-4 items-start md:items-center md:place-items-start gap-y-4 lg:flex lg:justify-between">
         <div>
