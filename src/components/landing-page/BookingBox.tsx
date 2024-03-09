@@ -55,6 +55,7 @@ function BookingBox() {
       const timeoutFunc = setTimeout(() => {
         if (inputValue.trim().length > 0) {
           setLoading(true);
+          setResponse(null);
           getLocations(inputValue)
             .then((res) => {
               setResponse(res);
@@ -63,15 +64,19 @@ function BookingBox() {
             .catch((error) => {
               error && setError(true);
               setLoading(false);
+              setResponse(null);
             });
         }
       }, 1000);
       return () => clearTimeout(timeoutFunc);
     }
   }, [inputValue, params.dest_id]);
-  
+
   useEffect(() => {
     setError(false);
+    if (inputValue?.trim().length < 1) {
+      setResponse(null);
+    }
   }, [inputValue]);
 
   const handleChange = (
@@ -114,34 +119,40 @@ function BookingBox() {
       <div className="bg-white rounded-md absolute p-2 top-[110%] custom-shadow left-0">
         {error ? (
           <p className="text-center text-[0.9rem] font-[600] px-4 text-red-500 flex items-center gap-x-1">
-            <span><IoWarning /></span>An error occured.
+            <span>
+              <IoWarning />
+            </span>
+            An error occured.
           </p>
         ) : null}
         {loading && <InlineLoading styling="w-6 h-6 my-2 mx-10" />}
-        {response?.length && response?.length < 1 ? (
+        {response &&
+        response?.filter((city: LocationProp) => city.dest_type === "city")
+          .length < 1 ? (
           <p className="text-center text-[0.9rem] font-[600]">Not Found.</p>
         ) : null}
-        {Array.isArray(response) && response
-          ?.filter((city: LocationProp) => city.dest_type === "city")
-          .map((city: LocationProp, i: number) => {
-            return (
-              <div
-                key={city.dest_id}
-                className="p-2 rounded-md cursor-pointer hover:bg-[#f7f7f7]"
-                onClick={() => listAction(city.label, city.dest_id)}
-              >
-                <p key={i} className="text-[0.8rem] whitespace-nowrap ">
-                  {city.city_name}
-                </p>
-                <p
-                  key={i + 1}
-                  className="text-[0.6rem] font-semibold whitespace-nowrap "
+        {Array.isArray(response) &&
+          response
+            ?.filter((city: LocationProp) => city.dest_type === "city")
+            .map((city: LocationProp, i: number) => {
+              return (
+                <div
+                  key={city.dest_id}
+                  className="p-2 rounded-md cursor-pointer hover:bg-[#f7f7f7]"
+                  onClick={() => listAction(city.label, city.dest_id)}
                 >
-                  {city.label}
-                </p>
-              </div>
-            );
-          })}
+                  <p key={i} className="text-[0.8rem] whitespace-nowrap ">
+                    {city.city_name}
+                  </p>
+                  <p
+                    key={i + 1}
+                    className="text-[0.6rem] font-semibold whitespace-nowrap "
+                  >
+                    {city.label}
+                  </p>
+                </div>
+              );
+            })}
       </div>
     );
   }
