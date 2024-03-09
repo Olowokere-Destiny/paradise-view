@@ -1,9 +1,10 @@
 import { dancingScript, raleway } from "@/utils/fontExports";
+import Link from "next/link";
 
 function Footer() {
   return (
     <div className="bg-brown px-[0.8rem] md:px-[3rem] lg:px-[5rem] text-white pt-[1.7rem] md:pt-8">
-      <div className="grid grid-cols-2 gap-y-4 gap-x-8 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-y-4 gap-x-8 md:grid-cols-3">
         <div className="">
           <h2
             className={`${dancingScript.className} text-[1.8rem] lg:text-[2.3rem]`}
@@ -19,20 +20,10 @@ function Footer() {
         <div className="shrink-0 flex flex-col md:items-center">
           <h2 className="font-[600] text-[0.9rem] md:-ml-3">Quick Links</h2>
           <div className="mt-3 flex flex-col gap-y-2 text-[0.8rem]">
-            <p>Rooms booking</p>
-            <p>Rooms</p>
-            <p>Contact</p>
-            <p>Explore</p>
-          </div>
-        </div>
-
-        <div className="shrink-0 flex flex-col md:items-center">
-          <h2 className="font-[600] text-[0.9rem] md:-ml-3">Quick Links</h2>
-          <div className="mt-3 flex flex-col gap-y-2 text-[0.8rem]">
-            <p>Rooms booking</p>
-            <p>Rooms</p>
-            <p>Contact</p>
-            <p>Explore</p>
+            <Link href="/">Paradise View</Link>
+            <Link href="/explore">Explore</Link>
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact Us</Link>
           </div>
         </div>
 

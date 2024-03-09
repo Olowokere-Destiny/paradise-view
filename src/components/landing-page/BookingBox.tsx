@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import validate from "@/utils/paramsValidator";
 import currencies from "@/utils/currencies";
 import InlineLoading from "../loading/InlineLoading";
+import { IoWarning } from "react-icons/io5";
 function BookingBox() {
   interface LocationProp {
     dest_id: string;
@@ -112,8 +113,8 @@ function BookingBox() {
     return (
       <div className="bg-white rounded-md absolute p-2 top-[110%] custom-shadow left-0">
         {error ? (
-          <p className="text-center text-[0.9rem] font-[600] px-4">
-            An error occured.
+          <p className="text-center text-[0.9rem] font-[600] px-4 text-red-500 flex items-center gap-x-1">
+            <span><IoWarning /></span>An error occured.
           </p>
         ) : null}
         {loading && <InlineLoading styling="w-6 h-6 my-2 mx-10" />}
@@ -145,7 +146,6 @@ function BookingBox() {
     );
   }
   // end of dropdown list
-
   return (
     <div className="rounded-[0.6rem] p-4 border border-[#b1b1b1] my-12 md:my-16  mx-[0.8rem] md:mx-[3rem] lg:mx-[5rem]">
       <div className="relative my-2">
@@ -156,7 +156,7 @@ function BookingBox() {
           placeholder="Where are you going?"
           className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
         />
-        {inputValue?.trim().length > 0 ? <List /> : null}
+        {error || response || loading ? <List /> : null}
       </div>
       <div className="custom-grid grid-cols-3 grid md:grid-cols-4 items-start md:items-center md:place-items-start gap-y-4 lg:flex lg:justify-between">
         <div>
