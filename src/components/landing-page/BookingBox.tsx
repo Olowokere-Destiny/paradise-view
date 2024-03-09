@@ -58,6 +58,7 @@ function BookingBox() {
           setResponse(null);
           getLocations(inputValue)
             .then((res) => {
+              if ("detail" in res) setError(true)
               setResponse(res);
               setLoading(false);
             })
@@ -126,7 +127,7 @@ function BookingBox() {
           </p>
         ) : null}
         {loading && <InlineLoading styling="w-6 h-6 my-2 mx-10" />}
-        {response &&
+        {Array.isArray(response) &&
         response?.filter((city: LocationProp) => city.dest_type === "city")
           .length < 1 ? (
           <p className="text-center text-[0.9rem] font-[600]">Not Found.</p>
