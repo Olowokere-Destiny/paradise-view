@@ -18,6 +18,8 @@ import doubleBed from "../assets/double-bed.png";
 import doubleBedLuxury from "../assets/double-bed-luxury.png";
 import BookingBox from "@/components/landing-page/BookingBox";
 import { Metadata } from "next";
+import ReviewsSlide from "@/components/react-slick/ReviewsSlide";
+
 
 export const metadata: Metadata = {
   title: "Home",
@@ -25,17 +27,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  // const currentUrl = new URL(window.location.href);
-  // function appendQuery() {
-  //   currentUrl.searchParams.set("type", "cars");
-  //   currentUrl.searchParams.set("price", "20K");
-  //   console.log(currentUrl.toString())
-  // }
-  // function getQuery() {
-  //   const extract = currentUrl.searchParams.get("price");
-  //   console.log(extract?.toString())
-  // }
-
   return (
     <div>
       {/* Hero section */}
@@ -135,15 +126,31 @@ export default function Home() {
             attractions from any location around the globe!{" "}
           </p>
         </div>
-      <div className="md:w-1/2 self-stretch">
-        <Image
-          src={bag}
-          width={150}
-          height={100}
-          alt="bag"
-          className="w-full"
-        />
+        <div className="md:w-1/2 self-stretch">
+          <Image
+            src={bag}
+            width={150}
+            height={100}
+            alt="bag"
+            className="w-full"
+          />
+        </div>
       </div>
+
+      {/* Remarks section */}
+      <div className="my-8 md:my-12">
+        <div className="flex justify-center items-center gap-x-1">
+          <div className="bg-brown rounded-md w-1 h-[1.2rem] md:h-[1.4rem]"></div>
+          <h1
+            className={`${raleway.className} font-[600] text-[1.2rem] md:text-[1.4rem]`}
+          >
+            User reviews
+          </h1>
+          <div className="bg-brown rounded-md w-1 h-[1.2rem] md:h-[1.4rem]"></div>
+        </div>
+        <div className="px-[0.8rem] md:px-[3rem] lg:px-[5rem] remarks-bg">
+          <ReviewsSlide />
+        </div>
       </div>
     </div>
   );

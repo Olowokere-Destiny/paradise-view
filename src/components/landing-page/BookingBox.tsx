@@ -1,7 +1,7 @@
 "use client";
 import getLocations from "@/utils/getLocation";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import validate from "@/utils/paramsValidator";
 import currencies from "@/utils/currencies";
 import InlineLoading from "../loading/InlineLoading";
@@ -53,7 +53,7 @@ function BookingBox() {
   useEffect(() => {
     if (!params.dest_id || inputValue.trim().length < 3) {
       const timeoutFunc = setTimeout(() => {
-        if (inputValue.trim().length > 0) {
+        if (inputValue.trim().length > 1) {
           setLoading(true);
           setResponse(null);
           getLocations(inputValue)

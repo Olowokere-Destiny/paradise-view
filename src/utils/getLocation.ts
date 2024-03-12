@@ -9,7 +9,7 @@ export default function getLocations(city: string) {
 
   return fetch(url, options)
     .then(response => response.json())
-    .catch(error => {
-      return error
-    });
+    // .catch(error => {
+    //   return error
+    // });
 }

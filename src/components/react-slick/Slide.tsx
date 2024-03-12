@@ -48,10 +48,10 @@ function Slide({ photos }: { photos: string[] }) {
           >
             <Image
               src={photo}
-              width={150}
-              height={100}
+              width={200}
+              height={200}
               alt="house"
-              className="w-full mr-2 h-full"
+              className="w-full mr-2 h-full object-cover"
             />
             <div className="rounded-md px-2 absolute right-4 bottom-4 text-white bg-gray-300 text-[0.9rem]">{i+1}/{arr.length}</div>
           </div>

@@ -4,6 +4,7 @@ import SingleHotel from "@/components/hotels/SingleHotel";
 import { useGetHotelsQuery } from "@/redux/fetchData/service";
 import getMoreHotels from "@/utils/getMoreHotels";
 import FullLoading from "@/components/loading/FullLoading";
+import InlineLoading from "@/components/loading/InlineLoading";
 interface SingleHotelProps {
   city: string;
   photoMainUrl: string;
@@ -18,27 +19,49 @@ interface SingleHotelProps {
   id: number;
 }
 function HotelsList() {
-  const [search, setSearch] = useState<string>()
+  const [search, setSearch] = useState<string>();
+  const [scrollY, setScrollY] = useState<number>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   useEffect(() => {
     const { search } = new URL(window?.location.href);
-    setSearch(search)
-  }, [])
+    setSearch(search);
+  }, []);
   const [page, setPage] = useState(1);
   const [hotelList, setHotelList] = useState<SingleHotelProps[]>([]);
   const { data: hotelsResult, isLoading, isError } = useGetHotelsQuery(search);
   useEffect(() => {
     setHotelList(hotelsResult?.results);
   }, [hotelsResult?.results]);
-
+  
   function showMore() {
+    const { scrollY } = window;
+    setScrollY(scrollY);
     setPage(page + 1);
+    const currentScrollPos = scrollY;
+    setScrollY(currentScrollPos);
+    window?.scrollTo({
+      top: currentScrollPos,
+    });
+    setLoading(true);
     getMoreHotels(`${search}&page_number=${page.toString()}`)
       .then((res) => {
+        if ("detail" in res) {
+          setError(true);
+          setLoading(false)
+        } else {
+          setLoading(false);
+        }
         setHotelList((prev) => {
           return [...prev, ...res?.results];
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error) {
+          setError(true);
+          setLoading(false);
+        }
+      });
   }
 
   return (
@@ -69,17 +92,19 @@ function HotelsList() {
                 />
               );
             })}
-            {hotelList && (
-              <div className="flex justify-center sticky bottom-2 lg:col-span-2">
-                <button
-                  className="rounded-[0.8rem] text-[0.9rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
-                  onClick={() => showMore()}
-                >
-                  Show more
-                </button>
-              </div>
-            )}
           </div>
+          {hotelList && (
+            <div className="flex justify-center items-center">
+              <button
+                className="rounded-[0.8rem] text-[0.9rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
+                onClick={() => showMore()}
+              >
+                {loading && <InlineLoading style={{margin: 0}} styling="text-white w-[1.5rem] h-[1.5rem]" />}
+                {error && <p>Error!</p>}
+                {!loading && !error && <p>Show more</p>}
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>
