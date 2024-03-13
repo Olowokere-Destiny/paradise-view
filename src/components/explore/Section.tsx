@@ -12,6 +12,7 @@ function Section({image, title, text}: Props) {
       <div className="-z-50">
         <Image
           src={image}
+          unoptimized
           width={150}
           height={100}
           alt="house image"

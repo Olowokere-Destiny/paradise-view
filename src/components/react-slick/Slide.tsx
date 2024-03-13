@@ -50,10 +50,11 @@ function Slide({ photos }: { photos: string[] }) {
               src={photo}
               width={200}
               height={200}
-              alt="house"
+              alt="property image"
+              unoptimized
               className="w-full mr-2 h-full object-cover"
             />
-            <div className="rounded-md px-2 absolute right-4 bottom-4 text-white bg-gray-300 text-[0.9rem]">{i+1}/{arr.length}</div>
+            <div className="rounded-md px-2 absolute right-4 bottom-4 bg-black bg-opacity-30 text-white text-[0.9rem]">{i+1} / {arr.length}</div>
           </div>
         );
       })}

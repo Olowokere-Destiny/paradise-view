@@ -11,7 +11,7 @@ function HeaderDesktop() {
   return (
     <div className="hidden md:flex justify-between items-center md:px-[3rem] lg:px-[5rem] md:py-[1rem] lg:py-[1.5rem]">
       <Link href="/">
-        <Image src={logo} className="w-[3.4rem] h-[1.7rem] " alt="logo" />
+        <Image src={logo} unoptimized className="w-[3.4rem] h-[1.7rem] " alt="logo" />
       </Link>
 
       <div className="flex items-center justify-between md:gap-x-[3rem] lg:gap-x-[4rem] xlg:gap-x-[6.5rem] ">

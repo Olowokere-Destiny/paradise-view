@@ -17,6 +17,7 @@ function Explore() {
       {/* Hero section */}
       <Image
         src={heroImg}
+        unoptimized
         width={150}
         height={100}
         alt="house image"

@@ -16,7 +16,7 @@ function HeaderMobile() {
   return (
     <div className="md:hidden flex items-center justify-between px-[0.8rem] py-4">
       <Link href="/">
-        <Image src={logo} className="w-[2.8rem] h-[1.4rem] " alt="logo" />
+        <Image src={logo} unoptimized className="w-[2.8rem] h-[1.4rem] " alt="logo" />
       </Link>
       <div>
         <Image

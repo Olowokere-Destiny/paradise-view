@@ -59,6 +59,7 @@ export default function Home() {
           src={heroHouse}
           width={150}
           height={100}
+          unoptimized
           alt="house"
           className="rounded-[0.3rem] md:rounded-none w-full md:w-[47%]"
         />
@@ -132,6 +133,7 @@ export default function Home() {
             width={150}
             height={100}
             alt="bag"
+            unoptimized
             className="w-full"
           />
         </div>

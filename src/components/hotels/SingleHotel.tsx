@@ -76,7 +76,8 @@ function SingleHotel({
             src={photoMainUrl}
             width={150}
             height={100}
-            alt="house"
+            alt="property image"
+            unoptimized
             className="w-full rounded-[8px]"
           />
         </div>

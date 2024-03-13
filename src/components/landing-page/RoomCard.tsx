@@ -13,7 +13,7 @@ function RoomCard({ img, title, desc }: Props) {
         <div className="absolute top-3 right-3 px-[0.4rem] py-1 rounded-[0.2rem] text-[0.9rem] font-[600] bg-brown text-white">
           {title}
         </div>
-        <Image src={img} className="rounded-[0.32rem] w-full" alt="room" />
+        <Image src={img} unoptimized className="rounded-[0.32rem] w-full" alt="room" />
       </div>
       <p className={`${raleway.className} text-[1rem] font-[400] mt-[0.8rem]`}>
         {desc}

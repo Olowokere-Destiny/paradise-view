@@ -11,6 +11,7 @@ function FacilitiesCard({ icon, text }: Props) {
         src={icon}
         width={150}
         height={100}
+        unoptimized
         alt=""
         className="w-[2.7rem] h-[2rem]"
       />

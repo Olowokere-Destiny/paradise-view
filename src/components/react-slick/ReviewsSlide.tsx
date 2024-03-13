@@ -57,6 +57,7 @@ function ReviewsSlide() {
                 <Image
                   src={photos[i]}
                   alt="user"
+                  unoptimized
                   width={100}
                   height={100}
                   className="rounded-full w-7 h-7"

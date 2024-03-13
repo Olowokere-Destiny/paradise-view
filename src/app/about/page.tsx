@@ -54,6 +54,7 @@ function About() {
               src={ceo}
               width={150}
               height={100}
+              unoptimized
               alt="ceo picture"
               className="w-full"
             />
@@ -87,6 +88,7 @@ function About() {
             src={nnpc}
             width={150}
             height={100}
+            unoptimized
             alt="logo"
             className="w-[3rem] md:w-[4.5rem]"
           />
@@ -94,6 +96,7 @@ function About() {
             src={cbn}
             width={150}
             height={100}
+            unoptimized
             alt="logo"
             className="w-[3rem] md:w-[4.5rem]"
           />
@@ -101,6 +104,7 @@ function About() {
             src={ncc}
             width={150}
             height={100}
+            unoptimized
             alt="logo"
             className="w-[3rem] md:w-[4.5rem]"
           />
@@ -108,6 +112,7 @@ function About() {
             src={unicef}
             width={150}
             height={100}
+            unoptimized
             alt="logo"
             className="w-[3rem] md:w-[4.5rem]"
           />
@@ -116,6 +121,7 @@ function About() {
             width={150}
             height={100}
             alt="logo"
+            unoptimized
             className="w-[3rem] md:w-[4.5rem]"
           />
         </div>
