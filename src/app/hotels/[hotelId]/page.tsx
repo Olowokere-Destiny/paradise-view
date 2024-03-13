@@ -32,14 +32,14 @@ interface HotelData {
   address: string;
   country_trans: string;
   hotel_id: number;
-  wifi_review_score?: {
+  wifi_review_score: {
     rating: number;
   };
-  breakfast_review_score?: {
+  breakfast_review_score: {
     review_score_word: string;
     review_score: number;
   };
-  facilities_block?: {
+  facilities_block: {
     facilities: { name: string }[];
   };
   composite_price_breakdown: {
@@ -50,33 +50,33 @@ interface HotelData {
   };
 }
 
-const photos = [
-  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/331395602.jpg?k=469cc9865e3ee3d32bc8f9916c293bc82b754b778c3436ff19c2b2b069870a14&o=",
-  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54629815.jpg?k=faedd002cc7aa5b14a21e2464c185530fb166f6a0c7ebb57ee12c66349ae1b9e&o=",
-  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/58016890.jpg?k=e05fcff350c8d7d8e1d40f4a368255e004058ce6e86b4355214e0ec399d28754&o=",
-  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54631278.jpg?k=3b37c2dd55100f78a19fe8ff178d2a7717dafc9ed3c1d6983cac360ee7916506&o=",
-  "https://cf.bstatic.com/xdata/images/hotel/max1280x900/188927080.jpg?k=521e70cb127adc857d948a364eaa295cb10728745973fe66eb59e33b2b4b006e&o=",
-];
-const description =
-  "Guests travelling with children must inform the property in advance how many will be staying and of their ages upon booking. Contact details can be found on the booking confirmation. When booking 10 rooms or more, different policies and additional supplements may apply. In response to Coronavirus (COVID-19), additional safety and sanitation measures are in effect at this property.";
+// const photos = [
+//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/331395602.jpg?k=469cc9865e3ee3d32bc8f9916c293bc82b754b778c3436ff19c2b2b069870a14&o=",
+//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54629815.jpg?k=faedd002cc7aa5b14a21e2464c185530fb166f6a0c7ebb57ee12c66349ae1b9e&o=",
+//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/58016890.jpg?k=e05fcff350c8d7d8e1d40f4a368255e004058ce6e86b4355214e0ec399d28754&o=",
+//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/54631278.jpg?k=3b37c2dd55100f78a19fe8ff178d2a7717dafc9ed3c1d6983cac360ee7916506&o=",
+//   "https://cf.bstatic.com/xdata/images/hotel/max1280x900/188927080.jpg?k=521e70cb127adc857d948a364eaa295cb10728745973fe66eb59e33b2b4b006e&o=",
+// ];
+// const description =
+//   "Guests travelling with children must inform the property in advance how many will be staying and of their ages upon booking. Contact details can be found on the booking confirmation. When booking 10 rooms or more, different policies and additional supplements may apply. In response to Coronavirus (COVID-19), additional safety and sanitation measures are in effect at this property.";
 
-const hotelData: HotelData = {
-  url: "https://www.booking.com/hotel/de/riu-plaza-berlin.html",
-  hotel_name: "Riu Plaza Berlin",
-  city: "Berlin",
-  accommodation_type_name: "Hotel",
-  latitude: 52.5002932226084,
-  longitude: 13.3467457829422,
-  address: "Martin-Luther-Strasse 1",
-  country_trans: "Germany",
-  composite_price_breakdown: {
-    gross_amount: {
-      currency: "AED",
-      value: 612.671783780459,
-    },
-  },
-  hotel_id: 1377073,
-};
+// const hotelData: HotelData = {
+//   url: "https://www.booking.com/hotel/de/riu-plaza-berlin.html",
+//   hotel_name: "Riu Plaza Berlin",
+//   city: "Berlin",
+//   accommodation_type_name: "Hotel",
+//   latitude: 52.5002932226084,
+//   longitude: 13.3467457829422,
+//   address: "Martin-Luther-Strasse 1",
+//   country_trans: "Germany",
+//   composite_price_breakdown: {
+//     gross_amount: {
+//       currency: "AED",
+//       value: 612.671783780459,
+//     },
+//   },
+//   hotel_id: 1377073,
+// };
 
 function constructDate() {
   const currentDate = new Date();
@@ -99,12 +99,12 @@ function constructDate() {
 const alternativeDates = constructDate();
 
 // dummy states
-const hotelDataLoading = false;
-const descriptionLoading = false;
-const photosLoading = false;
-const hotelDataError = false;
-const descriptionError = false;
-const photosError = false;
+// const hotelDataLoading = false;
+// const descriptionLoading = false;
+// const photosLoading = false;
+// const hotelDataError = false;
+// const descriptionError = false;
+// const photosError = false;
 
 function Hotel({ params: { hotelId } }: Props) {
   const [checkin, setCheckin] = useState<string>();
@@ -124,24 +124,24 @@ function Hotel({ params: { hotelId } }: Props) {
     setCurrency(currency);
   }, []);
 
-  // const {
-  //   data: hotelData,
-  //   isLoading: hotelDataLoading,
-  //   isError: hotelDataError,
-  // } = useGetHotelDetailsQuery(
-  //   `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
-  // ) as { data: HotelData; isLoading: boolean; isError: boolean };
-  // const {
-  //   data: description,
-  //   isLoading: descriptionLoading,
-  //   isError: descriptionError,
-  // } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
-  // const {
-  //   data: photosArr,
-  //   isLoading: photosLoading,
-  //   isError: photosError,
-  // } = useGetPhotosQuery(hotelId);
-  // const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
+  const {
+    data: hotelData,
+    isLoading: hotelDataLoading,
+    isError: hotelDataError,
+  } = useGetHotelDetailsQuery(
+    `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
+  ) as { data: HotelData; isLoading: boolean; isError: boolean };
+  const {
+    data: description,
+    isLoading: descriptionLoading,
+    isError: descriptionError,
+  } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
+  const {
+    data: photosArr,
+    isLoading: photosLoading,
+    isError: photosError,
+  } = useGetPhotosQuery(hotelId);
+  const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
 
   return (
     <>
