@@ -52,9 +52,9 @@ function Slide({ photos }: { photos: string[] }) {
               height={200}
               alt="property image"
               unoptimized
-              className="w-full mr-2 h-full object-cover"
+              className="w-full mr-2 h-full object-cover rounded-md"
             />
-            <div className="rounded-md px-2 absolute right-4 bottom-4 bg-black bg-opacity-30 text-white text-[0.9rem]">{i+1} / {arr.length}</div>
+            <div className="rounded-md px-2 absolute right-4 bottom-4 bg-black bg-opacity-40 text-white text-[0.9rem]">{i+1} / {arr.length}</div>
           </div>
         );
       })}

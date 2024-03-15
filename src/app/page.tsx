@@ -3,7 +3,7 @@ import { dancingScript, raleway } from "@/utils/fontExports";
 import heroHouse from "../assets/landing-hero-house.png";
 import Image from "next/image";
 import FacilitiesCard from "@/components/landing-page/FacilitiesCard";
-import bag from "../assets/baggage.jpg";
+import travel from "../assets/travel3.jpg";
 import swimmingIcon from "../assets/swimming-svg.svg";
 import wifiIcon from "../assets/wifi-svg.svg";
 import breakfastIcon from "../assets/chicken-svg.svg";
@@ -129,7 +129,7 @@ export default function Home() {
         </div>
         <div className="md:w-1/2 self-stretch">
           <Image
-            src={bag}
+            src={travel}
             width={150}
             height={100}
             alt="bag"

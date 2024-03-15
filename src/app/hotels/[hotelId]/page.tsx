@@ -155,7 +155,7 @@ function Hotel({ params: { hotelId } }: Props) {
         <div className="">
           <div className="bg-[#fdfdfd] py-5 relative">
             {hotelData?.accommodation_type_name && (
-              <span className="absolute z-[500] top-4 right-[1.2rem] md:right-[3rem] lg:right-[5rem] text-[0.7rem] rounded-md ml-2 px-2 py-1 bg-light-brown text-white self-start mt-3">
+              <span className="absolute z-[500] top-4 md:top-0 right-[1.2rem] md:right-[3rem] lg:right-[5rem] text-[0.7rem] rounded-md ml-2 px-2 py-1 bg-light-brown text-white self-start mt-3">
                 {hotelData?.accommodation_type_name}
               </span>
             )}
@@ -175,7 +175,7 @@ function Hotel({ params: { hotelId } }: Props) {
 
               <div className="text-center md:text-left">
                 <p
-                  className={`font-[600] text-brown text-[2rem] md:text-[2.3rem] ${raleway.className}`}
+                  className={`font-[600] text-brown text-[1.5rem] lg:text-[2.3rem] ${raleway.className}`}
                 >
                   {hotelData?.hotel_name}
                 </p>
@@ -220,7 +220,7 @@ function Hotel({ params: { hotelId } }: Props) {
             <div
               className={`px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem]`}
             >
-              <h2 className="flex items-center font-[600] text-[1.6rem] md:text-[1.8rem] text-black">
+              <h2 className="flex items-center font-[600] text-[1.4rem] md:text-[1.8rem] text-black">
                 <span>Description</span>
                 <MdOutlineDescription />
               </h2>
