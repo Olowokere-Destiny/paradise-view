@@ -19,10 +19,3 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-.remarks-bg {
-  background-image: url("../assets/comments-bg.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}

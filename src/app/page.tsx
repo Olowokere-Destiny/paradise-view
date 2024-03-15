@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero section */}
-      <div className="flex flex-col gap-y-4 md:gap-y-0 md:flex-row justify-between px-[0.8rem] md:px-[3rem] lg:px-[5rem]">
+      <div className="bg-[#fffbf3] flex flex-col gap-y-4 md:gap-y-0 md:flex-row justify-between px-[0.8rem] md:px-[3rem] lg:px-[5rem]">
         <div className="md:w-1/2 md:flex md:flex-col">
           <h2
             className={`${dancingScript.className} text-brown text-[1.8rem] md:text-[2.8rem]`}
@@ -150,7 +150,7 @@ export default function Home() {
           </h1>
           <div className="bg-brown rounded-md w-1 h-[1.2rem] md:h-[1.4rem]"></div>
         </div>
-        <div className="px-[0.8rem] md:px-[3rem] lg:px-[5rem] remarks-bg">
+        <div className="px-[0.8rem] md:px-[3rem] lg:px-[5rem]">
           <ReviewsSlide />
         </div>
       </div>
