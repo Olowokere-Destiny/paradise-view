@@ -8,7 +8,7 @@ import sectionBar from "../../assets/section-bar.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Explore",
+  title: "Explore - Paradise View",
   description: "Explore Paradise View",
 };
 function Explore() {

@@ -22,7 +22,7 @@ import ReviewsSlide from "@/components/react-slick/ReviewsSlide";
 
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Home - Paradise View",
   description: "Paradise View booking home page",
 };
 

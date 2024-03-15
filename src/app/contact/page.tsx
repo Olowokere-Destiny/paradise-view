@@ -1,5 +1,10 @@
-"use client";
 import GMap from "@/components/map/GMap";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us - Paradise View",
+  description: "Paradise View contact us page",
+};
 
 function Contact() {
   const lat = 6.5244;

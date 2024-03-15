@@ -10,7 +10,7 @@ import nirsal from "../../assets/nirsal.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us - Paradise View",
   description: "About Paradise View",
 };
 
