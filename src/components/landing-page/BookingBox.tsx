@@ -32,6 +32,7 @@ function BookingBox() {
     setUrl(url);
   }, []);
   const router = useRouter();
+  const [trackInput, setTrackInput] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [validateError, setvalidateError] = useState<string | null>();
   const [params, setParams] = useState<ParamsProp>({
@@ -58,7 +59,7 @@ function BookingBox() {
           setResponse(null);
           getLocations(inputValue)
             .then((res) => {
-              if ("detail" in res) setError(true)
+              if ("detail" in res) setError(true);
               setResponse(res);
               setLoading(false);
             })
@@ -72,6 +73,12 @@ function BookingBox() {
       return () => clearTimeout(timeoutFunc);
     }
   }, [inputValue, params.dest_id]);
+
+  useEffect(() => {
+    if (params.dest_id) {
+      setParams((prev) => ({ ...prev, dest_id: "" }));
+    }
+  }, [trackInput]);
 
   useEffect(() => {
     setError(false);
@@ -164,7 +171,10 @@ function BookingBox() {
         <p className="font-[600]">Location</p>
         <input
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setTrackInput((prev) => prev + 1);
+          }}
           placeholder="Where are you going?"
           className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
         />

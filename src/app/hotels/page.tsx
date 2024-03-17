@@ -33,7 +33,7 @@ function HotelsList() {
   useEffect(() => {
     setHotelList(hotelsResult?.results);
   }, [hotelsResult?.results]);
-  
+
   function showMore() {
     const { scrollY } = window;
     setScrollY(scrollY);
@@ -48,7 +48,7 @@ function HotelsList() {
       .then((res) => {
         if ("detail" in res) {
           setError(true);
-          setLoading(false)
+          setLoading(false);
         } else {
           setLoading(false);
         }
@@ -71,6 +71,10 @@ function HotelsList() {
       ) : isError ? (
         <div className="flex items-center justify-center h-screen text-red-600 font-[600]">
           An error occured.
+        </div>
+      ) : hotelList?.length < 1 ? (
+        <div className="flex items-center justify-center h-screen text-red-600 font-[600]">
+          No hotels found.
         </div>
       ) : (
         <div>
@@ -99,7 +103,12 @@ function HotelsList() {
                 className="rounded-[0.8rem] text-[0.9rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
                 onClick={() => showMore()}
               >
-                {loading && <InlineLoading style={{margin: 0}} styling="text-white w-[1.5rem] h-[1.5rem]" />}
+                {loading && (
+                  <InlineLoading
+                    style={{ margin: 0 }}
+                    styling="text-white w-[1.5rem] h-[1.5rem]"
+                  />
+                )}
                 {error && <p>Error!</p>}
                 {!loading && !error && <p>Show more</p>}
               </button>

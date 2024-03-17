@@ -183,7 +183,7 @@ function Hotel({ params: { hotelId } }: Props) {
                   <span className="font-[600] text-[1.1rem]">Address: </span>
                   <span className="text-slate-700 ">{hotelData?.address}</span>
                 </p>
-                <p className="font-[600] text-slate-700 text-[1rem] md:text-[1.2rem] flex items-center md:justify-start mt-3 justify-center">
+                <p className="whitespace-nowrap font-[600] text-slate-700 text-[1rem] md:text-[1.2rem] flex items-center md:justify-start mt-3 justify-center">
                   <span>
                     <FaLocationDot className="mr-[2px]" />
                   </span>{" "}

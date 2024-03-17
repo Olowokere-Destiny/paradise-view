@@ -62,7 +62,7 @@ function SingleHotel({
   }
 
   return (
-    <div className="relative border border-gray-300 rounded-[0.3rem] p-4 hover:outline hover:outline-[3px] hover:outline-gray-200 outline-offset-1 hover:border-none">
+    <div className="relative border border-gray-300 rounded-[8px] p-4 hover:outline hover:outline-[3px] hover:outline-gray-200 outline-offset-1 hover:border-none">
       <div className="flex flex-col md:space-x-6 md:flex-row gap-y-3 md:gap-x-6 lg:justify-between lg:gap-x-3 ">
         {reviewScore ? (
           <div
@@ -71,7 +71,7 @@ function SingleHotel({
             {reviewScore}
           </div>
         ) : null}
-        <div className="md:w-[200px] h-[250px] md:h-[200px] overflow-hidden rounded-[8px] lg:w-[40%]">
+        <div className="md:w-[200px] h-[250px] overflow-hidden rounded-[8px] lg:w-[40%]">
           <Image
             src={photoMainUrl}
             width={150}
