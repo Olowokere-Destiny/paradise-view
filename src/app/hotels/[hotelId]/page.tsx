@@ -274,7 +274,7 @@ function Hotel({ params: { hotelId } }: Props) {
           </div>
           <div className="flex justify-center">
             <button
-              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
+              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4 active:ring-2 active:ring-[#7c6a46] ring-offset-2"
               onClick={() => {
                 stripeCheckout({
                   lineItems: [

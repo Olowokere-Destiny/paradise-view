@@ -3,8 +3,8 @@ import { lora } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaArrowRight } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+// import { FaAngleRight } from "react-icons/fa";
+import { FaLocationDot, FaAngleRight } from "react-icons/fa6";
 interface Props {
   photoMainUrl: string;
   name: string;
@@ -62,7 +62,7 @@ function SingleHotel({
   }
 
   return (
-    <div className="relative border border-gray-300 rounded-[8px] p-4 hover:outline hover:outline-[3px] hover:outline-gray-200 outline-offset-1 hover:border-none">
+    <div className="relative border border-gray-300 rounded-[8px] p-4">
       <div className="flex flex-col md:space-x-6 md:flex-row gap-y-3 md:gap-x-6 lg:justify-between lg:gap-x-3 ">
         {reviewScore ? (
           <div
@@ -115,12 +115,12 @@ function SingleHotel({
       </div>
       <div className="flex justify-center md:justify-end mt-3">
         <Link
-          className="flex gap-x-2 items-center rounded-[0.8rem] text-[0.9rem] py-[0.6rem] px-7 lg:py-3 w-max bg-brown text-white font-[600]"
+          className="flex gap-x-1 items-center justify-center view-btn rounded-[0.8rem] text-[0.9rem] py-[0.6rem] px-7 lg:py-3 w-max bg-brown text-white font-[600] active:ring-2 active:ring-[#7c6a46] ring-offset-2"
           href={`/hotels/${id.toString()}?checkin_date=${checkin}&checkout_date=${checkout}&locale=en-gb&currency=${currency}`}
         >
           <span>View</span>
-          <span>
-            <FaArrowRight className="text-white" />
+          <span className="view-arrow">
+            <FaAngleRight className="text-white" />
           </span>
         </Link>
       </div>

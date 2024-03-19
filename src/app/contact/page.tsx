@@ -41,7 +41,7 @@ function Contact() {
           </div>
 
           <div className="mt-3 flex justify-end">
-            <button className="py-2 px-4 bg-brown text-white rounded-[0.3rem]">
+            <button className="py-2 px-4 bg-brown text-white rounded-[0.3rem] active:ring-2 active:ring-[#7c6a46] ring-offset-2">
               Submit
             </button>
           </div>

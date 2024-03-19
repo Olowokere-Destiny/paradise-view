@@ -100,7 +100,7 @@ function HotelsList() {
           {hotelList && (
             <div className="flex justify-center items-center">
               <button
-                className="rounded-[0.8rem] text-[0.9rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4"
+                className="rounded-[0.8rem] text-[0.9rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4 active:ring-2 active:ring-[#7c6a46] ring-offset-2"
                 onClick={() => showMore()}
               >
                 {loading && (
