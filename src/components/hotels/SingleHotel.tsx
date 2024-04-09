@@ -3,7 +3,7 @@ import { lora } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-// import { FaAngleRight } from "react-icons/fa";
+import { RiFireFill } from "react-icons/ri";
 import { FaLocationDot, FaAngleRight } from "react-icons/fa6";
 interface Props {
   photoMainUrl: string;
@@ -40,11 +40,11 @@ function SingleHotel({
   );
   const reviewScoreStyling = () => {
     if (Number(reviewScore) <= 3) {
-      return "bg-red-100 text-red-400";
+      return "bg-red-100 text-red-400 bg-opacity-40";
     } else if (Number(reviewScore) > 3 && Number(reviewScore) < 6) {
-      return "bg-yellow-100 text-yellow-400";
+      return "bg-yellow-100 text-yellow-400 bg-opacity-40";
     } else if (Number(reviewScore) >= 6) {
-      return "bg-green-100 text-green-400";
+      return "bg-green-100 text-green-400 bg-opacity-40";
     }
   };
   function staysCalc(checkin: string, checkout: string) {
@@ -66,9 +66,10 @@ function SingleHotel({
       <div className="flex flex-col md:space-x-6 md:flex-row gap-y-3 md:gap-x-6 lg:justify-between lg:gap-x-3 ">
         {reviewScore ? (
           <div
-            className={`${reviewScoreStyling()} absolute right-2 top-2 px-2 py-1 font-[700] text-[0.9rem] rounded-[0.3rem]`}
+            className={`${reviewScoreStyling()} flex items-center gapx-x-2 absolute left-4 bottom-4 px-2 py-1 font-[700] text-[0.9rem] rounded-[0.3rem]`}
           >
-            {reviewScore}
+            <RiFireFill />
+            <span>{reviewScore}</span>
           </div>
         ) : null}
         <div className="md:w-[200px] h-[250px] overflow-hidden rounded-[8px] lg:w-[40%]">
@@ -78,7 +79,7 @@ function SingleHotel({
             height={100}
             alt="property image"
             unoptimized
-            className="w-full rounded-[8px]"
+            className="w-full rounded-[8px] h-full object-cover object-center"
           />
         </div>
 

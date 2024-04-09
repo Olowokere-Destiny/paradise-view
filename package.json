@@ -28,8 +28,6 @@
     "react-modern-drawer": "^1.2.2",
     "react-redux": "^9.0.2",
     "react-slick": "^0.29.0",
-    "reactjs-otp-input": "^2.0.8",
-    "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

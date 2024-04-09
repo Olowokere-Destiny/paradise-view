@@ -44,7 +44,7 @@ function Slide({ photos }: { photos: string[] }) {
         return (
           <div
             key={photo}
-            className="md:p-2 relative h-[200px] overflow-hidden"
+            className="md:p-2 relative h-[230px] md:h-[250px] overflow-hidden"
           >
             <Image
               src={photo}
