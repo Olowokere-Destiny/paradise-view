@@ -44,4 +44,4 @@ export const hotelsServiceV2 = createApi({
 });
 
 export const { useGetPhotosQuery } = hotelsServiceV1;
-export const { useGetHotelsQuery, useGetDescriptionQuery, useGetHotelDetailsQuery } = hotelsServiceV2;
+export const { useGetHotelsQuery, useLazyGetDescriptionQuery, useGetHotelDetailsQuery } = hotelsServiceV2;

@@ -9,7 +9,7 @@ import { IoFastFoodOutline, IoWifiOutline } from "react-icons/io5";
 import { FaLocationDot, FaCircleCheck } from "react-icons/fa6";
 import {
   useGetPhotosQuery,
-  useGetDescriptionQuery,
+  useLazyGetDescriptionQuery,
   useGetHotelDetailsQuery,
 } from "@/redux/fetchData/service";
 import FullLoading from "@/components/loading/FullLoading";
@@ -73,6 +73,7 @@ function Hotel({ params: { hotelId } }: Props) {
   const [checkin, setCheckin] = useState<string>();
   const [checkout, setCheckout] = useState<string>();
   const [currency, setCurrency] = useState<string>();
+  const [descVisible, setDescVisible] = useState(false);
   useEffect(() => {
     const checkin =
       new URL(window?.location.href).searchParams.get("checkin_date") ||
@@ -94,17 +95,24 @@ function Hotel({ params: { hotelId } }: Props) {
   } = useGetHotelDetailsQuery(
     `hotel_id=${hotelId}&checkout_date=${checkout}&checkin_date=${checkin}&currency=${currency}&locale=en-gb`
   ) as { data: HotelData; isLoading: boolean; isError: boolean };
-  const {
-    data: description,
-    isLoading: descriptionLoading,
-    isError: descriptionError,
-  } = useGetDescriptionQuery(`hotel_id=${hotelId}&locale=en-gb`);
+  const [
+    getDesc,
+    {
+      data: descriptionData,
+      isLoading: descriptionLoading,
+      isError: descriptionError,
+    },
+  ] = useLazyGetDescriptionQuery();
   const {
     data: photosArr,
     isLoading: photosLoading,
     isError: photosError,
   } = useGetPhotosQuery(hotelId);
   const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
+  function fetchDesc() {
+    setDescVisible(true);
+    getDesc(`hotel_id=${hotelId}&locale=en-gb`)
+  }
 
   return (
     <>
@@ -173,13 +181,24 @@ function Hotel({ params: { hotelId } }: Props) {
           ) : (
             <Slide photos={photos} />
           )}
+
+          {!descVisible ? (
+            <button
+              onClick={() => {
+                fetchDesc();
+              }}
+              className="text-[0.8rem] text-slate-600 underline block mx-auto"
+            >
+              Show Description
+            </button>
+          ) : null}
           {descriptionLoading ? (
             <InlineLoading />
           ) : descriptionError ? (
             <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting description. Try again later
             </p>
-          ) : (
+          ) : descriptionData?.description && (
             <div
               className={`px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem]`}
             >
@@ -189,7 +208,7 @@ function Hotel({ params: { hotelId } }: Props) {
               <p
                 className={`${raleway.className} font-[500] text-[1.1rem] md:text-[1.3rem] text-slate-700`}
               >
-                {description?.description}
+                {descriptionData?.description}
               </p>
             </div>
           )}

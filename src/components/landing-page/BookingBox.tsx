@@ -175,7 +175,7 @@ function BookingBox() {
             setInputValue(e.target.value);
             setTrackInput((prev) => prev + 1);
           }}
-          placeholder="Where are you going?"
+          placeholder="Major city, town or Province"
           className="block border-[1.5px] border-[#666] w-full md:w-1/2 placeholder:text-[0.8rem] p-2 focus:outline-none rounded-md"
         />
         {error || response || loading ? <List /> : null}
