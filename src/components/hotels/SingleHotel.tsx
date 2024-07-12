@@ -118,6 +118,7 @@ function SingleHotel({
         <Link
           className="flex gap-x-1 items-center justify-center view-btn rounded-[0.8rem] text-[0.9rem] py-[0.6rem] px-7 lg:py-3 w-max bg-brown text-white font-[600] active:ring-2 active:ring-[#7c6a46] ring-offset-2"
           href={`/hotels/${id.toString()}?checkin_date=${checkin}&checkout_date=${checkout}&locale=en-gb&currency=${currency}`}
+          target="_blank"
         >
           <span>View</span>
           <span className="view-arrow">
