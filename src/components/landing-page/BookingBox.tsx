@@ -6,6 +6,7 @@ import validate from "@/utils/paramsValidator";
 import currencies from "@/utils/currencies";
 import InlineLoading from "../loading/InlineLoading";
 import { IoWarning } from "react-icons/io5";
+import getUserCountry from "@/utils/getCountry";
 function BookingBox() {
   interface LocationProp {
     dest_id: string;
@@ -30,6 +31,13 @@ function BookingBox() {
   useEffect(() => {
     const url = new URL(`${window?.location.href}/hotels`);
     setUrl(url);
+    getUserCountry().then(data => {
+      setParams((prev) => (
+        {...prev,
+        filter_by_currency: currencies.find(item => item.country === data?.countryCode)?.currency || "USD"
+      }
+      ))
+    });
   }, []);
   const router = useRouter();
   const [trackInput, setTrackInput] = useState(0);
@@ -190,8 +198,8 @@ function BookingBox() {
             value={params.filter_by_currency}
           >
             {currencies.map((currency, i) => (
-              <option key={currency + i.toString()} value={currency}>
-                {currency}
+              <option key={currency + i.toString()} value={currency.currency}>
+                {currency.currency}
               </option>
             ))}
           </select>
