@@ -34,7 +34,7 @@ function BookingBox() {
     getUserCountry().then(data => {
       setParams((prev) => (
         {...prev,
-        filter_by_currency: currencies.find(item => item.country === data?.country_code)?.currency || "USD"
+        filter_by_currency: currencies.find(item => item.country === data?.country_code)?.currency || "Select"
       }
       ))
     });
