@@ -1,6 +1,6 @@
 const getUserCountry = async () => {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_COUNTRY_API as string);
+    const response = await fetch("http://ip-api.com/json/");
     const data = await response.json();
     return data;
   } catch (error) {
