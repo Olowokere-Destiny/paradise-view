@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <Provider store={store}>
       <html lang="en" className="scroll-smooth">
-        <body className={poppins.className}>
+        <body className={`${poppins.className} max-w-[1300px] mx-auto`}>
           <Header />
           <ProgressBar
             height="3px"

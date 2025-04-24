@@ -1,5 +1,4 @@
 const currencies = [
-  { country: "", currency: "Select" },
   { country: "AE", currency: "AED" },
   { country: "AF", currency: "AFN" },
   { country: "AL", currency: "ALL" },

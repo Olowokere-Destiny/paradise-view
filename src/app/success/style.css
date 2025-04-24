@@ -1,0 +1,16 @@
+.fade-in {
+  width: 100%;
+  opacity: 0.5;
+  animation: growEffect 2s ease-in-out forwards;
+}
+
+@keyframes growEffect {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

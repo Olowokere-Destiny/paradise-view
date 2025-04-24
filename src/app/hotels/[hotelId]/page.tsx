@@ -3,7 +3,6 @@ import Slide from "@/components/react-slick/Slide";
 import { raleway } from "@/utils/fontExports";
 import Image from "next/image";
 import Link from "next/link";
-import stripeCheckout from "@/utils/stripeCheckout";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { IoFastFoodOutline, IoWifiOutline } from "react-icons/io5";
 import { FaLocationDot, FaCircleCheck } from "react-icons/fa6";
@@ -16,6 +15,7 @@ import FullLoading from "@/components/loading/FullLoading";
 import InlineLoading from "@/components/loading/InlineLoading";
 import { useEffect, useState } from "react";
 import GMap from "@/components/map/GMap";
+import { VscLoading } from "react-icons/vsc";
 interface Props {
   params: {
     hotelId: string;
@@ -49,6 +49,14 @@ interface HotelData {
   };
 }
 
+export interface CheckoutPayload {
+  amount: number;
+  currency: string;
+  images?: string[];
+  name: string;
+  cancel_url: string;
+}
+
 function constructDate() {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -74,6 +82,7 @@ function Hotel({ params: { hotelId } }: Props) {
   const [checkout, setCheckout] = useState<string>();
   const [currency, setCurrency] = useState<string>();
   const [descVisible, setDescVisible] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   useEffect(() => {
     const checkin =
       new URL(window?.location.href).searchParams.get("checkin_date") ||
@@ -109,10 +118,49 @@ function Hotel({ params: { hotelId } }: Props) {
     isError: photosError,
   } = useGetPhotosQuery(hotelId);
   const photos = photosArr?.map((obj: { url_max: string }) => obj.url_max);
+
   function fetchDesc() {
     setDescVisible(true);
-    getDesc(`hotel_id=${hotelId}&locale=en-gb`)
+    getDesc(`hotel_id=${hotelId}&locale=en-gb`);
   }
+
+  const handleCheckout = async () => {
+    const currency =
+      hotelData?.composite_price_breakdown?.gross_amount?.currency || "USD";
+    const amount =
+      hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(0);
+    const payload: CheckoutPayload = {
+      name: hotelData?.hotel_name,
+      amount: parseFloat(amount),
+      currency,
+      cancel_url: window.location.href
+    };
+
+    if (photos && photos.length) {
+      payload.images = [photos[0]];
+    }
+
+    try {
+      setPaymentLoading(true);
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = (await res.json()) as { url?: string; error?: string };
+
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Could not initialize payment.");
+      }
+    } catch (err) {
+      alert("Checkout error.");
+    } finally {
+      setPaymentLoading(false);
+    }
+  };
 
   return (
     <>
@@ -198,19 +246,21 @@ function Hotel({ params: { hotelId } }: Props) {
             <p className="text-center m-4 text-red-500 font-[600]">
               There was an error getting description. Try again later
             </p>
-          ) : descriptionData?.description && (
-            <div
-              className={`px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem]`}
-            >
-              <h2 className="font-[600] text-[1.4rem] md:text-[1.8rem] text-black">
-                Description
-              </h2>
-              <p
-                className={`${raleway.className} font-[500] text-[1.1rem] md:text-[1.3rem] text-slate-700`}
+          ) : (
+            descriptionData?.description && (
+              <div
+                className={`px-[0.8rem] md:px-[3rem] lg:px-[5rem] my-[3rem] md:my-[6rem]`}
               >
-                {descriptionData?.description}
-              </p>
-            </div>
+                <h2 className="font-[600] text-[1.4rem] md:text-[1.8rem] text-black">
+                  Description
+                </h2>
+                <p
+                  className={`${raleway.className} font-[500] text-[1.1rem] md:text-[1.3rem] text-slate-700`}
+                >
+                  {descriptionData?.description}
+                </p>
+              </div>
+            )
           )}
 
           <div className="my-6 px-[0.8rem] md:px-[3rem] lg:px-[5rem]">
@@ -255,21 +305,25 @@ function Hotel({ params: { hotelId } }: Props) {
           </div>
           <div className="flex justify-center">
             <button
-              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4 active:ring-2 active:ring-[#7c6a46] ring-offset-2"
+              disabled={paymentLoading}
+              className="rounded-[0.8rem] text-[0.9rem] md:text-[1.1rem] py-[0.8rem] px-7 lg:py-4 bg-brown text-white my-4 active:ring-2 active:ring-[#7c6a46] ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
               onClick={() => {
-                stripeCheckout({
-                  lineItems: [
-                    {
-                      price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
-                      quantity: 1,
-                    },
-                  ],
-                });
+                handleCheckout();
               }}
             >
-              Pay {hotelData?.composite_price_breakdown?.gross_amount?.currency}{" "}
-              {hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(
-                0
+              {paymentLoading ? (
+                <VscLoading
+                  style={{ color: "white" }}
+                  className="animate-spin h-5 w-5"
+                />
+              ) : (
+                <>
+                  Pay{" "}
+                  {hotelData?.composite_price_breakdown?.gross_amount?.currency}{" "}
+                  {hotelData?.composite_price_breakdown?.gross_amount?.value.toFixed(
+                    0
+                  )}
+                </>
               )}
             </button>
           </div>
